@@ -168,4 +168,7 @@ static/node_modules
 static/package-lock.json
 
 # Webapp
-static/content
+static/content/*
+!static/content/.gitkeep
+static/meta/*
+!static/meta/.gitkeep

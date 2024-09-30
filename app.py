@@ -1,10 +1,10 @@
 from flask import Flask, render_template
 import os, re
+from cover_dl import download_manga_cover  # Importez la fonction
 
 app = Flask(__name__)
 
 DATA_PATH = "static/content"
-
 
 def scanFolder(url: str):
     print("Scanning folder...\n")
@@ -27,13 +27,13 @@ def scanFolder(url: str):
         print(f"err -> {url} doesn't exist")
 
     return file_list
+    
 
 
 @app.route("/")
 def welcome():
     folders = scanFolder(DATA_PATH)
     return render_template("index.html", folders=folders)
-
 
 @app.route("/r/<string:name>")
 def view(name: str):
@@ -45,3 +45,7 @@ def read(name: str, chapter: str):
     imgs = scanFolder(DATA_PATH+"/"+name+"/"+chapter)
     chap = scanFolder(DATA_PATH+"/"+name)
     return render_template("read.html", name=name, chapter=chapter, imgs=imgs, chap=chap)
+
+if __name__ == "__main__":
+    download_manga_cover("Arafoo Otoko no Isekai Tsuhan Seikatsu")  # Appel de la fonction au démarrage
+    app.run(debug=True)

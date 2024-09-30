@@ -7,19 +7,42 @@
     <title>MGREAD | {{name}}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
+    <script src="{{ url_for('static', filename='node_modules/showdown/dist/showdown.min.js') }}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script> -->
 </head>
 
 <body>
 
-    <main>
+    <main class="spacearound">
 
-        <section>
-            <h1 style="text-align: center;" id="frckName">{{name}}</h1>
+        <div class="backgroundimg">
+            <div class="filter"></div>
+        </div>
+
+        <section class="listchapter-title">
+            <a href="/"><button><i class='bx bxs-home-alt-2'></i></button></a>
+            <h1 style="text-align: center;display:none;" id="frckName">{{name}}</h1>
+            <div></div>
+            <div></div>
+            
         </section>
 
-        <section class="golastchapter">
-            <p><i class='bx bx-last-page'></i> Return to the last chapter (<a id="lastchapter" href=""><span></span></a>)</p>
-        </section>
+        <div class="view-info">
+            <div class="left">
+                <img class="coverImage" src="" alt="">
+                <div class="golastchapter">
+                    <a id="lastchapter"><button>Continue reading <span></span></button></a>
+                </div>
+            </div>
+            <div class="right">
+                <h2>{{name}} <span class="source">from mangadex</span></h2>
+                <div id="jsonDescription"></div>
+                <div id="jsonGenres">
+
+                </div>
+                <p class="popupnote">Note : automatic metadata search are still in the development phase.</p>
+            </div>
+        </div>
 
         <section class="listchapter">
             <h2><span>Chapters list</span> <span id="btnSearch" onclick="searchPopup()" class="search"><i
@@ -112,8 +135,6 @@
         });
     });
 
-
-
     const iconreverse = document.querySelector('.iconreverse');
     iconreverse.addEventListener('click', () => {
         iconreverse.classList.toggle('active');
@@ -133,6 +154,43 @@
             listchapter.appendChild(chapter);
         });
     });
+
+    const name = "exampleName";  // Assurez-vous que cela correspond à votre nom de fichier
+    const jsonPath = `/static/meta/{{name}}/{{name}}.json`;  // Chemin vers votre fichier JSON
+
+    fetch(jsonPath)
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error("Erreur lors de la récupération du fichier JSON: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Données récupérées :", data);
+            let nameData = data;
+            console.log("Nom du manga :", nameData.title);
+            nameData.alternative_titles.forEach(element => {
+                console.log("Titre alternatif :", element);
+            });
+
+            console.log("Image de couverture :", nameData.cover_image_url);
+            document.querySelector('.backgroundimg').style.backgroundImage = 'url("/static/meta/{{name}}/{{name}}.jpg")';
+            document.querySelector('.coverImage').src = '/static/meta/{{name}}/{{name}}.jpg';
+
+            nameData.genres.forEach(element => {
+                document.querySelector('#jsonGenres').innerHTML += `<div>${element}</div>`;
+            });
+
+
+            var converter = new showdown.Converter();
+            document.querySelector('#jsonDescription').innerHTML = converter.makeHtml(nameData.description);
+        })
+        .catch(error => {
+            console.error("Il y a eu un problème avec la récupération des données :", error);
+        });
+
+
 </script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 

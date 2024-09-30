@@ -4,6 +4,10 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+*::selection {
+  background: #ff8e47;
+  color: #eef4fc;
+}
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -132,6 +136,10 @@ body {
   width: 100%;
   height: 4px;
   background-color: hsl(234, 14%, 14%);
+  transition: 0.2s;
+}
+#scrollLevel:hover {
+  height: 10px;
 }
 #scrollLevel #scrollBar {
   width: 0%;
@@ -162,6 +170,29 @@ main {
 }
 main section {
   margin: 20px 0;
+}
+
+@media screen and (max-width: 1300px) {
+  main.spacearound {
+    margin: 0 20px;
+  }
+}
+.listchapter-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.listchapter-title button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #eef4fc;
+  cursor: pointer;
+}
+.listchapter-title button:hover {
+  color: #ff8e47;
 }
 
 .listchapter h2 {
@@ -352,17 +383,106 @@ main section {
     height: 100%;
   }
 }
-.golastchapter p {
+.golastchapter a {
+  text-decoration: none;
+}
+.golastchapter a button {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 20px;
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  display: block;
+  font-size: 18px;
+  background-color: #ff6f14;
+  color: #eef4fc;
+  cursor: pointer;
+  border-radius: 10px;
 }
-.golastchapter p a {
+.golastchapter a button span {
+  display: none;
+}
+
+.backgroundimg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.backgroundimg .filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(234, 14%, 10%, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(to top, hsl(234, 14%, 10%), hsla(234, 14%, 10%, 0.4));
+}
+
+.view-info {
+  display: flex;
+  gap: 20px;
+}
+.view-info .left {
+  width: 300px;
+}
+.view-info .left .coverImage {
+  width: 100%;
+  border-radius: 16px;
+  transition: 0.4s;
+}
+.view-info .left .coverImage:hover {
+  transform: scale(1.05);
+  border-radius: 6px;
+}
+.view-info .right {
+  flex: 1;
+}
+.view-info .right h2 {
+  margin-bottom: 10px;
+  font-size: 2.3em;
+  cursor: default;
+}
+.view-info .right h2 .source {
+  font-size: 12px;
   color: #ff8e47;
-  text-decoration: none;
 }
-.golastchapter p a:hover {
-  color: #fa6000;
-  text-decoration: none;
+.view-info .right #jsonDescription {
+  font-size: 14px;
+}
+.view-info .right #jsonDescription a {
+  color: #ff8e47;
+}
+.view-info .right #jsonDescription hr {
+  display: none;
+}
+.view-info .right #jsonGenres {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  font-size: 12px;
+  cursor: default;
+}
+.view-info .right #jsonGenres > div {
+  background-color: hsl(234, 14%, 14%);
+  text-align: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.popupnote {
+  background-color: rgba(255, 142, 71, 0.1254901961);
+  border: 1px solid #ff8e47;
+  padding: 10px;
+  color: #eef4fc;
 }/*# sourceMappingURL=style.css.map */

@@ -5,12 +5,18 @@ $background2: $background-variant-1;
 $background3: $background-variant-2;
 $text: $brand-text;
 $primary: $brand-primary;
+$primary-transparent:#ff8e4720;
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+
+    &::selection {
+        background: $primary;
+        color: $text;
+    }
 }
 
 body {
@@ -161,6 +167,11 @@ body {
     width: 100%;
     height: 4px;
     background-color: $background2;
+    transition: .2s;
+
+    &:hover{
+        height: 10px;
+    }
 
     #scrollBar {
         width: 0%;
@@ -197,6 +208,33 @@ main {
 
     section {
         margin: 20px 0;
+    }
+
+}
+
+@media screen and (max-width: 1300px) {
+    main.spacearound{
+        margin: 0 20px;
+    }
+}
+
+.listchapter-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    button{
+        font-size: 20px;
+        background: none;
+        border: none;
+        outline: none;
+        color: $text;
+        cursor: pointer;
+
+        &:hover{
+            color: $primary;
+        }
     }
 }
 
@@ -438,20 +476,121 @@ main {
 }
 
 .golastchapter{
-    p{
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 20px;
+    a{
+        text-decoration: none;
+        button{
+            display: flex;
+            margin-top: 12px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            display: block;
+            font-size: 18px;
+            background-color: darken($primary, 10%);
+            color: $text;
+            cursor: pointer;
+            border-radius: 10px;
 
-        a{
-            color: $primary;
-            text-decoration: none;
-
-            &:hover{
-                color: darken($primary, 15%);
-                text-decoration: none;
+            span{
+                display: none;
             }
         }
     }
+}
+
+.backgroundimg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    
+    z-index: -1;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .filter{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $background-glass;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: linear-gradient(to top, $background, $background-glass);
+    }
+}
+
+.view-info{
+    display: flex;
+    gap: 20px;
+    
+    .left{
+        width: 300px;
+
+        .coverImage{
+            width: 100%;
+            border-radius: 16px;
+            transition: .4s;
+
+            &:hover{
+                transform: scale(1.05);
+                border-radius: 6px;
+            }
+        }
+    }
+
+    .right{
+        flex: 1;
+        h2{
+            margin-bottom: 10px;
+            font-size: 2.3em;
+            cursor: default;
+
+            .source{
+                font-size: 12px;
+                color: $primary;
+            }
+        }
+
+        #jsonDescription{
+            font-size: 14px;
+            
+            a{
+                color: $primary;
+            }
+
+            hr{
+                display: none;
+            }
+        }
+
+        #jsonGenres{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            cursor: default;
+
+            > div{
+                background-color: $background2;
+                text-align: center;
+                padding: 4px 6px;
+                border-radius: 6px;
+            }
+        }
+    }
+}
+
+.popupnote{
+    background-color: $primary-transparent;
+    border: 1px solid $primary;
+    padding: 10px;
+    color: $text;
 }

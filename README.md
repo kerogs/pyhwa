@@ -14,6 +14,8 @@ Small python application for reading manhwa/manhua/manga.
 - User-friendly (coming soon)
 - pleasant interface (coming soon)
 - multiple themes (coming soon)
+- Automatic metadata search (still in development phase)
+- Automatic retrieval of manhwa/manhua/manga information
 
 ### Preview
 <div align="center">
