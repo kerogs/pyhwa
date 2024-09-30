@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGREAD | {{name}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
+</head>
+
+<body>
+
+    <main>
+
+        <section>
+            <h1 style="text-align: center;" id="frckName">{{name}}</h1>
+        </section>
+
+        <section class="golastchapter">
+            <p><i class='bx bx-last-page'></i> Return to the last chapter (<a id="lastchapter" href=""><span></span></a>)</p>
+        </section>
+
+        <section class="listchapter">
+            <h2><span>Chapters list</span> <span id="btnSearch" onclick="searchPopup()" class="search"><i
+                        class='bx bx-search-alt'></i></span> <span class="iconreverse"><i class='bx bx-sort'></i></span>
+            </h2>
+            <ul id="listchapter">
+                {% for chapter in chap %}
+                <a href="/r/{{ name }}/{{ chapter }}">
+                    <li>{{ chapter }}</li>
+                </a>
+                {% else %}
+                <li>Aucun fichier ou dossier trouvé.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <div class="popupSearch">
+        <div class="bck"></div>
+        <div class="ccenter">
+            <h2>Search</h2>
+            <input id="search" type="search" placeholder="Search...">
+            <div class="group">
+                <button class="result" onclick="searchPopup()">Result</button>
+                <button class="close" onclick="searchPopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const cookiesArray = document.cookie.split(';');
+        for (let i = 0; i < cookiesArray.length; i++) {
+            let cookie = cookiesArray[i].trim();
+            if (cookie.indexOf(nameEQ) === 0) {
+                return cookie.substring(nameEQ.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    const lastchapter = getCookie(document.querySelector("#frckName").textContent);
+
+    if (lastchapter != null) {
+        document.querySelector("#lastchapter span").innerHTML += lastchapter;
+        document.querySelector("#lastchapter").href = "/r/" + document.querySelector("#frckName").textContent + "/" + lastchapter;
+    }
+
+    const popupSearch = document.querySelector('.popupSearch');
+    function searchPopup() {
+        popupSearch.classList.toggle('active');
+    }
+
+    const search = document.querySelector('#search');
+    search.addEventListener('input', () => {
+        const searchTerm = search.value.toLowerCase(); // Récupère la valeur de recherche en minuscule
+        const listchapter = document.querySelector('#listchapter');
+        const chapters = Array.from(listchapter.querySelectorAll('li')); // Récupère tous les chapitres
+
+        if (searchTerm === '') {
+            document.querySelector('.ccenter .group .close').style.display = 'block';
+            document.querySelector('.ccenter .group .result').classList.remove('active');
+            document.querySelector('#btnSearch').classList.remove('active');
+        } else {
+            document.querySelector('.ccenter .group .close').style.display = 'none';
+            document.querySelector('.ccenter .group .result').classList.add('active');
+            document.querySelector('#btnSearch').classList.add('active');
+        }
+
+        chapters.forEach(chapter => {
+            // Vérifie si le chapitre contient le terme de recherche
+            const anchor = chapter.closest('a'); // Récupère l'élément <a> parent
+            if (chapter.textContent.toLowerCase().includes(searchTerm)) {
+                anchor.style.display = ''; // Affiche l'élément <a> si le terme est trouvé
+            } else {
+                anchor.style.display = 'none'; // Masque l'élément <a> s'il ne correspond pas
+            }
+        });
+    });
+
+
+
+    const iconreverse = document.querySelector('.iconreverse');
+    iconreverse.addEventListener('click', () => {
+        iconreverse.classList.toggle('active');
+
+        // Sélectionne tous les éléments enfants de #listchapter
+        const listchapter = document.querySelector('#listchapter');
+        const chapters = Array.from(listchapter.querySelectorAll('li'));
+
+        // Inverser l'ordre des éléments
+        chapters.reverse();
+
+        // Supprime les éléments actuels
+        listchapter.innerHTML = '';
+
+        // Réinsère les éléments dans l'ordre inversé
+        chapters.forEach(chapter => {
+            listchapter.appendChild(chapter);
+        });
+    });
+</script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</html>

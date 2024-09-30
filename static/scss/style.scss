@@ -1,0 +1,457 @@
+@import 'theme/kslabs_theme';
+$background: $background-variant-0;
+$background-glass: hsla(234, 14%, 10%, .4);
+$background2: $background-variant-1;
+$background3: $background-variant-2;
+$text: $brand-text;
+$primary: $brand-primary;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: $background;
+    color: $text;
+}
+
+.popupAction {
+    display: none;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    background: $background2;
+    width: 250px;
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .group {
+            display: flex;
+            gap: 5px;
+
+            >a {
+                flex: 1;
+            }
+
+            >button {
+                flex: 1;
+            }
+
+            &.nav {
+                >a {
+                    flex: unset;
+                    width: 40px;
+
+                    &.number {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+
+        button {
+            width: 100%;
+            background: $background3;
+            border: none;
+            color: $text;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+
+            &:hover {
+                background: darken($background3, 10%);
+            }
+        }
+    }
+}
+
+.popupShow {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    a{
+        text-decoration: none;
+    }
+
+    button {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: $background3;
+        border: none;
+        color: $text;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background: darken($background3, 6%);
+        }
+    }
+}
+
+.read_title {
+    text-align: center;
+    margin: 10px 0;
+
+    a {
+        text-decoration: none;
+        color: $primary;
+
+        &:hover {
+            color: darken($primary, 15%);
+        }
+    }
+}
+
+#chapter {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    max-width: 600px;
+    margin: 0 auto;
+
+    img {
+        display: block;
+        width: 100%;
+    }
+
+    &.manga {
+        max-width: unset;
+        margin: unset;
+        display: unset;
+        text-align: center;
+
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            max-height: 100vh;
+            max-width: 90vw;
+            object-fit: cover;
+        }
+    }
+}
+
+#scrollLevel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: $background2;
+
+    #scrollBar {
+        width: 0%;
+        height: 100%;
+        background: $primary;
+        transition: .5s;
+    }
+}
+
+.mangaNext {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // background-color: rgba(255, 0, 0, 0.13);
+    display: flex;
+    cursor: pointer;
+
+    .left {
+        flex: 1;
+        // background-color: rgba(0, 0, 255, 0.158);
+    }
+
+    .right {
+        flex: 1;
+    }
+}
+
+
+main {
+    max-width: 1300px;
+    margin: 0 auto;
+
+    section {
+        margin: 20px 0;
+    }
+}
+
+.listchapter {
+    h2 {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        align-items: center;
+        gap: 10px;
+
+        span {
+            font-size: 20px;
+
+            &:nth-child(1) {
+                flex: 1;
+            }
+
+            &.iconreverse {
+                cursor: pointer;
+                padding: 7px;
+                border-radius: 10px;
+                background-color: $background2;
+
+                &:hover {
+                    background-color: $background3;
+
+                    i {
+                        animation: .5s reverse180 forwards;
+                    }
+                }
+
+                &.active {
+                    color: $primary;
+                }
+            }
+
+            &.search {
+
+                cursor: pointer;
+                padding: 7px;
+                border-radius: 10px;
+                background-color: $background2;
+
+                &:hover {
+                    background-color: $background3;
+
+                    i {
+                        animation: .8s boingboing infinite;
+                    }
+                }
+
+                &.active {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    #listchapter {
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+        gap: 10px 10px;
+
+        a {
+            text-decoration: none;
+            color: $text;
+
+            &:visited {
+                color: $primary;
+            }
+
+
+            &:hover {
+                li {
+                    background-color: $background3;
+                }
+            }
+        }
+
+        li {
+            list-style: none;
+            background-color: $background2;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+    }
+
+
+}
+
+@keyframes reverse180 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(192deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes boingboing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.popupSearch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    .bck {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background: $background-glass;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .ccenter{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+
+        display: flex;
+        flex-direction: column;
+        width: 80vw;
+        gap: 10px;
+
+        h2{
+            font-size: 3em;
+        }
+
+        .group{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            input{
+                flex: 1;
+            }
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            border: 1px solid $primary;
+            color: $text;
+            background: none;
+            outline: none;
+            display: block;
+            font-size: 18px;
+            transition: .5s;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            display: block;
+            font-size: 18px;
+            background-color: $background3;
+            color: $text;
+
+            cursor:not-allowed;
+
+            &.result.active{
+                background-color: $primary;
+                color: $text;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: darken($primary, 10%);
+                }
+            }
+
+            &.close{
+                cursor: pointer;
+                background-color: $primary;
+
+                &:hover{
+                    background-color: darken($primary, 10%);
+                }
+            }
+        }
+    }
+
+    &.active {
+        display: block;
+        animation: 1s spawnFromTop forwards;
+    }
+}
+
+@keyframes spawnFromTop {
+    0% {
+        height: 0%;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+
+.golastchapter{
+    p{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 20px;
+
+        a{
+            color: $primary;
+            text-decoration: none;
+
+            &:hover{
+                color: darken($primary, 15%);
+                text-decoration: none;
+            }
+        }
+    }
+}

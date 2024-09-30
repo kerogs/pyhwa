@@ -1,0 +1,368 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: hsl(234, 14%, 10%);
+  color: #eef4fc;
+}
+
+.popupAction {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: hsl(234, 14%, 14%);
+  width: 250px;
+}
+.popupAction ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.popupAction ul .group {
+  display: flex;
+  gap: 5px;
+}
+.popupAction ul .group > a {
+  flex: 1;
+}
+.popupAction ul .group > button {
+  flex: 1;
+}
+.popupAction ul .group.nav > a {
+  flex: unset;
+  width: 40px;
+}
+.popupAction ul .group.nav > a.number {
+  flex: 1;
+}
+.popupAction ul button {
+  width: 100%;
+  background: hsl(234, 14%, 20%);
+  border: none;
+  color: #eef4fc;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.popupAction ul button:hover {
+  background: #16171d;
+}
+
+.popupShow {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+.popupShow a {
+  text-decoration: none;
+}
+.popupShow button {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: hsl(234, 14%, 20%);
+  border: none;
+  color: #eef4fc;
+  font-size: 20px;
+  cursor: pointer;
+}
+.popupShow button:hover {
+  background: #1f2029;
+}
+
+.read_title {
+  text-align: center;
+  margin: 10px 0;
+}
+.read_title a {
+  text-decoration: none;
+  color: #ff8e47;
+}
+.read_title a:hover {
+  color: #fa6000;
+}
+
+#chapter {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#chapter img {
+  display: block;
+  width: 100%;
+}
+#chapter.manga {
+  max-width: unset;
+  margin: unset;
+  display: unset;
+  text-align: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#chapter.manga img {
+  max-height: 100vh;
+  max-width: 90vw;
+  object-fit: cover;
+}
+
+#scrollLevel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: hsl(234, 14%, 14%);
+}
+#scrollLevel #scrollBar {
+  width: 0%;
+  height: 100%;
+  background: #ff8e47;
+  transition: 0.5s;
+}
+
+.mangaNext {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+}
+.mangaNext .left {
+  flex: 1;
+}
+.mangaNext .right {
+  flex: 1;
+}
+
+main {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+main section {
+  margin: 20px 0;
+}
+
+.listchapter h2 {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  gap: 10px;
+}
+.listchapter h2 span {
+  font-size: 20px;
+}
+.listchapter h2 span:nth-child(1) {
+  flex: 1;
+}
+.listchapter h2 span.iconreverse {
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: hsl(234, 14%, 14%);
+}
+.listchapter h2 span.iconreverse:hover {
+  background-color: hsl(234, 14%, 20%);
+}
+.listchapter h2 span.iconreverse:hover i {
+  animation: 0.5s reverse180 forwards;
+}
+.listchapter h2 span.iconreverse.active {
+  color: #ff8e47;
+}
+.listchapter h2 span.search {
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: hsl(234, 14%, 14%);
+}
+.listchapter h2 span.search:hover {
+  background-color: hsl(234, 14%, 20%);
+}
+.listchapter h2 span.search:hover i {
+  animation: 0.8s boingboing infinite;
+}
+.listchapter h2 span.search.active {
+  color: #ff8e47;
+}
+.listchapter #listchapter {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 10px 10px;
+}
+.listchapter #listchapter a {
+  text-decoration: none;
+  color: #eef4fc;
+}
+.listchapter #listchapter a:visited {
+  color: #ff8e47;
+}
+.listchapter #listchapter a:hover li {
+  background-color: hsl(234, 14%, 20%);
+}
+.listchapter #listchapter li {
+  list-style: none;
+  background-color: hsl(234, 14%, 14%);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+@keyframes reverse180 {
+  0% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(192deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@keyframes boingboing {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.popupSearch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.popupSearch .bck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(234, 14%, 10%, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.popupSearch .ccenter {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  gap: 10px;
+}
+.popupSearch .ccenter h2 {
+  font-size: 3em;
+}
+.popupSearch .ccenter .group {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.popupSearch .ccenter .group input {
+  flex: 1;
+}
+.popupSearch .ccenter input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  border: 1px solid #ff8e47;
+  color: #eef4fc;
+  background: none;
+  outline: none;
+  display: block;
+  font-size: 18px;
+  transition: 0.5s;
+}
+.popupSearch .ccenter button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  display: block;
+  font-size: 18px;
+  background-color: hsl(234, 14%, 20%);
+  color: #eef4fc;
+  cursor: not-allowed;
+}
+.popupSearch .ccenter button.result.active {
+  background-color: #ff8e47;
+  color: #eef4fc;
+  cursor: pointer;
+}
+.popupSearch .ccenter button.result.active:hover {
+  background-color: #ff6f14;
+}
+.popupSearch .ccenter button.close {
+  cursor: pointer;
+  background-color: #ff8e47;
+}
+.popupSearch .ccenter button.close:hover {
+  background-color: #ff6f14;
+}
+.popupSearch.active {
+  display: block;
+  animation: 1s spawnFromTop forwards;
+}
+
+@keyframes spawnFromTop {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+.golastchapter p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+}
+.golastchapter p a {
+  color: #ff8e47;
+  text-decoration: none;
+}
+.golastchapter p a:hover {
+  color: #fa6000;
+  text-decoration: none;
+}/*# sourceMappingURL=style.css.map */

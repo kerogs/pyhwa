@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGREAD | {{name}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
+</head>
+
+<body>
+
+    <h2 class="read_title" display="none"><a href=""><span class="frckName">{{name}}</span></a> / <span class="frckChapter">{{chapter}}</span></h2>
+
+    <ul id="chapter">
+        {% for img in imgs %}
+        <li>
+            <img src="{{ url_for('static', filename='content/'+ name + '/' + chapter + '/' + img) }}" alt="">
+        </li>
+        {% else %}
+        <li>Aucun fichier ou dossier trouvé.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="mangaNext" id="mangaClickNav" style="display: none;">
+        <div class="left" id="mangaIMgPosDown"></div>
+        <div class="right" id="mangaIMgPosUp"></div>
+    </div>
+
+    <div class="popupAction">
+        <ul>
+            <li><a href="#"><button><i class='bx bxs-up-arrow'></i></button></a></li>
+            <li><a href="/r/{{ name }}"><button>Go back</button></a></li>
+            <li><button id="btnscreenisfullclose" onclick="fullscreen()"><i class='bx bx-fullscreen'></i></button></li>
+            <li class="group nav">
+                <!-- Lien vers le chapitre précédent -->
+                {% if chap.index(chapter) > 0 %}
+                <a href="{{ url_for('read', name=name, chapter=chap[chap.index(chapter) - 1]) }}">
+                    <button><i class='bx bxs-left-arrow'></i></button>
+                </a>
+                {% endif %}
+                <!-- Affiche le numéro du chapitre actuel -->
+                <a href="/r/{{ name }}" class="number">
+                    <button>{{ chap[chap.index(chapter)].split()[-1] }}</button>
+                </a>
+                <!-- Lien vers le chapitre suivant -->
+                {% if chap.index(chapter) < chap|length - 1 %} <a
+                    href="{{ url_for('read', name=name, chapter=chap[chap.index(chapter) + 1]) }}">
+                    <button><i class='bx bxs-right-arrow'></i></button>
+                    </a>
+                    {% endif %}
+            </li>
+            <li class="group">
+                <button onclick="manhwaStyle()">Manhwa</button>
+                <button onclick="mangaStyle()">Manga</button>
+            </li>
+            <li><button onclick="hidePopup()"><i class='bx bxs-hide'></i></button></li>
+        </ul>
+    </div>
+
+    <div class="popupShow">
+        {% if chap.index(chapter) < chap|length - 1 %} <a
+            href="{{ url_for('read', name=name, chapter=chap[chap.index(chapter) + 1]) }}">
+            <button><i class='bx bxs-right-arrow'></i></button>
+            </a>
+            {% endif %}
+            <button onclick="hideShowPopup()"><i class='bx bxs-show'></i></button>
+    </div>
+
+    <div id="scrollLevel">
+        <div id="scrollBar"></div>
+    </div>
+
+
+</body>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const cookiesArray = document.cookie.split(';');
+        for (let i = 0; i < cookiesArray.length; i++) {
+            let cookie = cookiesArray[i].trim();
+            if (cookie.indexOf(nameEQ) === 0) {
+                return cookie.substring(nameEQ.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    // ? save this page
+    setCookie(document.querySelector(".frckName").textContent, document.querySelector(".frckChapter").textContent, 60);
+    console.log("CookieSaved : " + document.querySelector(".frckName").textContent + " -> " + document.querySelector(".frckChapter").textContent);
+
+
+    let popupShow = document.querySelector(".popupShow");
+    let popupAction = document.querySelector(".popupAction");
+
+    function hidePopup() {
+        popupShow.style.display = "block";
+        popupAction.style.display = "none";
+        setCookie("showPopup", "yes", 7);
+    }
+
+    function hideShowPopup() {
+        popupShow.style.display = "none";
+        popupAction.style.display = "block";
+        setCookie("showPopup", "no", 7);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // mangaStyle && manhwaStyle
+    const allImages = document.querySelectorAll("#chapter li");
+    let realAllImageLenght = allImages.length - 1;
+    let mangaImgPos = 0;
+    if (getCookie("showStyle") == "mangaStyle") {
+        let showStyle = "mangaStyle";
+
+        // init mangaStyle
+        mangaStyle();
+        document.querySelector("#mangaClickNav").style.display = "flex";
+
+    } else {
+        let showStyle = "manhwaStyle";
+    }
+    console.log("showStyle (cookie) : " + getCookie("showStyle"));
+    function mangaStyle() {
+        console.log("mangaStyle");
+
+        document.querySelector("#chapter").classList.add("manga");
+
+        allImages.forEach(element => {
+            if (element == allImages[mangaImgPos]) {
+                console.log("show -> ok");
+            } else {
+                element.style = "display:none;";
+                console.log("hide -> ok");
+            }
+        });
+
+        pourcentScrollManga();
+        showStyle = "manga";
+        setCookie("showStyle", "mangaStyle", 7);
+        console.log("CookieSaved : " + showStyle);
+    }
+
+
+    function pourcentScroll() {
+        let scroll = document.querySelector("#scrollBar");
+        // ? allImages.length * 100 : 0;
+        let percent = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+
+        scroll.style.width = percent + "%";
+    }
+
+    addEventListener("scroll", pourcentScroll);
+
+    function pourcentScrollManga() {
+        document.querySelector("#scrollBar").style.width = (mangaImgPos / realAllImageLenght) * 100 + "%";
+    }
+
+    function showCurrentImage() {
+        // Masquer toutes les images
+        allImages.forEach((img, index) => {
+            img.style.display = index === mangaImgPos ? "block" : "none"; // Afficher uniquement l'image courante
+        });
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (showStyle == "manga") {
+            if (event.key === "ArrowRight") {
+                // Incrémenter mangaImgPos lorsque la flèche droite est pressée
+                if (mangaImgPos <= allImages.length && mangaImgPos != realAllImageLenght) {
+                    mangaImgPos++;
+                    showCurrentImage(); // Mettre à jour l'affichage
+                }
+            } else if (event.key === "ArrowLeft") {
+                // Décrémenter mangaImgPos lorsque la flèche gauche est pressée
+                if (mangaImgPos > 0) {
+                    mangaImgPos--;
+                    showCurrentImage(); // Mettre à jour l'affichage
+                }
+            }
+
+            console.log("mangaImgPos : " + mangaImgPos + "/" + allImages.length + "(" + realAllImageLenght + ")");
+
+            // update scrollbar width (mangaImgPos / allImages.length)
+            pourcentScrollManga();
+        }
+    });
+
+    function manhwaStyle() {
+        console.log("manhwaStyle");
+        document.querySelector("#chapter").classList.remove("manga");
+        showStyle = "manhwa";
+
+        allImages.forEach(element => {
+            element.style.display = "block";
+        });
+
+        pourcentScroll();
+        setCookie("showStyle", "manhwaStyle", 7);
+    }
+
+
+
+    const mangaClickNav = document.querySelector("#mangaClickNav");
+    const mangaIMgPosDown = document.querySelector("#mangaIMgPosDown");
+    const mangaIMgPosUp = document.querySelector("#mangaIMgPosUp");
+
+    document.addEventListener("click", (event) => {
+        if (showStyle == "manga") {
+            mangaClickNav.style.display = "flex";
+
+            if (event.target == mangaIMgPosDown && mangaImgPos > 0) {
+                mangaImgPos--;
+                showCurrentImage();
+
+            }
+
+            if (event.target == mangaIMgPosUp && mangaImgPos < realAllImageLenght) {
+                mangaImgPos++;
+                showCurrentImage();
+            }
+
+            pourcentScrollManga();
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // exit/fullscreen
+    const btnscreenisfullclose = document.querySelector("#btnscreenisfullclose");
+
+    function fullscreen() {
+        var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+            (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+            (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+            (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+        var docElm = document.documentElement;
+        if (!isInFullScreen) {
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            } else if (docElm.mozRequestFullScreen) {
+                docElm.mozRequestFullScreen();
+            } else if (docElm.webkitRequestFullScreen) {
+                docElm.webkitRequestFullScreen();
+            } else if (docElm.msRequestFullscreen) {
+                docElm.msRequestFullscreen();
+            }
+            btnscreenisfullclose.innerHTML = "<i class='bx bx-exit-fullscreen'></i>";
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            btnscreenisfullclose.innerHTML = "<i class='bx bx-fullscreen'></i>";
+        }
+    }
+</script>
+
+</html>

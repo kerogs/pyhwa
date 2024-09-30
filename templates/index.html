@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGREAD</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
+</head>
+
+<body>
+
+    <p>list</p>
+
+    <main>
+        <ul id="listtoread">
+            {% for folder in folders %}
+            <a href="/r/{{ folder }}">
+                <li>{{ folder }}</li>
+            </a>
+            {% else %}
+            <li>Aucun fichier ou dossier trouvé.</li>
+            {% endfor %}
+        </ul>
+    </main>
+    <hr>
+    <a href="/r/test">Dire bonjour à Test</a>
+</body>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+
+
+</script>
+
+</html>
