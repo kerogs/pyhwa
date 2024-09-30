@@ -1,6 +1,9 @@
 # mgreader
 Small python application for reading manhwa/manhua/manga.
 
+> [!NOTE]
+> The use of HakuNeko is highly recommended for rapid organization.
+
 ## Features
 - Automatically displays content for playback
 - Keeps track of where you stopped
@@ -17,12 +20,6 @@ Small python application for reading manhwa/manhua/manga.
 <img alt="" src=".ksinf/pcprev1.png" width="49%">
 <img alt="" src=".ksinf/pcprev2.png" width="49%">
 </div>
-
-> [!NOTE]
-> The use of HakuNeko is highly recommended for rapid organization.
-
-> [!IMPORTANT]
-> For the moment, the program can only recognize images, not compressed files, etc.
 
 ## How to install
 1. Clone repository
@@ -45,7 +42,8 @@ Everything must be put in the ``/static/`` folder.
 You must respect this tree structure for it to work properly
 - ``/static/[manga]/[chapter]/[allImage]``
 
-
+> [!IMPORTANT]
+> For the moment, the program can only recognize images, not compressed files, etc.
 
 Example :
 ```tree
