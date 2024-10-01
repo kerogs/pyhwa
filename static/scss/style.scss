@@ -304,10 +304,9 @@ main {
             text-decoration: none;
             color: $text;
 
-            &:visited {
-                color: $primary;
-            }
-
+            // &:visited {
+            //     color: $primary;
+            // }
 
             &:hover {
                 li {
@@ -322,6 +321,15 @@ main {
             padding: 6px 12px;
             border-radius: 10px;
             font-size: 20px;
+
+            &.read{
+                color: $primary;
+            }
+
+            &.readprogress{
+                color: $primary;
+                border: 1px solid $primary;
+            }
         }
     }
 
@@ -495,7 +503,22 @@ main {
             border-radius: 10px;
 
             span {
-                display: none;
+                &:nth-child(2) {
+                    display: none;
+                }
+            }
+
+            &:hover{
+                background-color: darken($primary, 16%);
+                span{
+                    &:nth-child(1) {
+                        display: none;
+                    }
+    
+                    &:nth-child(2) {
+                        display: block;
+                    }
+                }
             }
         }
     }
@@ -524,6 +547,12 @@ main {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         background: linear-gradient(to top, $background, $background-glass);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .backgroundimg{
+        height: 100vh;
     }
 }
 
@@ -570,6 +599,7 @@ main {
             hr {
                 display: none;
             }
+            overflow: hidden;
         }
 
         #jsonGenres {
@@ -587,6 +617,18 @@ main {
                 border-radius: 6px;
             }
         }
+
+        #extendDescription{
+            display: none;
+
+            span{
+                padding: 10px 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                justify-content: center;
+            }
+        }
     }
 }
 
@@ -594,7 +636,6 @@ main {
     .view-info {
         .left {
             width: 200px;
-
         }
 
         .right {
@@ -602,8 +643,25 @@ main {
                 font-size: 1.7em;
             }
 
+            #extendDescription{
+                display: block;
+                position: relative;
+                hr{
+                    border: 1px solid $primary;
+                }
+                text-align: center;
 
+                cursor: pointer;
+                color: $primary;
+            }
 
+            #jsonDescription{
+                max-height: 119px;
+
+                &.extend{
+                    max-height: unset !important;
+                }
+            }
         }
     }
 }
@@ -620,7 +678,8 @@ main {
 
             .coverImage {
                 width: unset;
-                max-height: 400px;
+                max-width: 400px;
+                // max-height: 400px;
                 border-radius: 16px;
                 transition: .4s;
 
@@ -628,6 +687,27 @@ main {
                     transform: scale(1.05);
                     border-radius: 6px;
                 }
+            }
+        }
+
+        .right{
+            display: block;
+            #jsonDescription{
+                max-height: 100px;
+
+                &.extend{
+                    max-height: unset !important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .view-info {
+        .left{
+            .coverImage{
+                max-width: 100%;
             }
         }
     }

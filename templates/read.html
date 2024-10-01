@@ -11,7 +11,7 @@
 
 <body>
 
-    <h2 class="read_title" display="none"><a href=""><span class="frckName">{{name}}</span></a> / <span
+    <h2 class="read_title" display="none"><a href="/r/{{name}}"><span class="frckName">{{name}}</span></a> / <span
             class="frckChapter">{{chapter}}</span></h2>
 
     <ul id="chapter">
@@ -35,17 +35,14 @@
             <li><a href="/r/{{ name }}"><button>Go back</button></a></li>
             <li><button id="btnscreenisfullclose" onclick="fullscreen()"><i class='bx bx-fullscreen'></i></button></li>
             <li class="group nav">
-                <!-- Lien vers le chapitre précédent -->
                 {% if chap.index(chapter) > 0 %}
                 <a href="{{ url_for('read', name=name, chapter=chap[chap.index(chapter) - 1]) }}">
                     <button><i class='bx bxs-left-arrow'></i></button>
                 </a>
                 {% endif %}
-                <!-- Affiche le numéro du chapitre actuel -->
                 <a href="/r/{{ name }}" class="number">
-                    <button>{{ chap[chap.index(chapter)].split()[-1] }}</button>
+                    <button>{{ chapterNumber }}</button>
                 </a>
-                <!-- Lien vers le chapitre suivant -->
                 {% if chap.index(chapter) < chap|length - 1 %} <a
                     href="{{ url_for('read', name=name, chapter=chap[chap.index(chapter) + 1]) }}">
                     <button><i class='bx bxs-right-arrow'></i></button>
@@ -190,7 +187,6 @@
 
     function pourcentScroll() {
         let scroll = document.querySelector("#scrollBar");
-        // ? allImages.length * 100 : 0;
         let percent = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight) * 100;
 
         scroll.style.width = percent + "%";
@@ -203,31 +199,29 @@
     }
 
     function showCurrentImage() {
-        // Masquer toutes les images
+        // none all images
         allImages.forEach((img, index) => {
-            img.style.display = index === mangaImgPos ? "block" : "none"; // Afficher uniquement l'image courante
+            img.style.display = index === mangaImgPos ? "block" : "none";
         });
     }
 
     document.addEventListener("keydown", (event) => {
         if (showStyle == "manga") {
             if (event.key === "ArrowRight") {
-                // Incrémenter mangaImgPos lorsque la flèche droite est pressée
                 if (mangaImgPos <= allImages.length && mangaImgPos != realAllImageLenght) {
                     mangaImgPos++;
-                    showCurrentImage(); // Mettre à jour l'affichage
+                    showCurrentImage();
                 }
             } else if (event.key === "ArrowLeft") {
-                // Décrémenter mangaImgPos lorsque la flèche gauche est pressée
+
                 if (mangaImgPos > 0) {
                     mangaImgPos--;
-                    showCurrentImage(); // Mettre à jour l'affichage
+                    showCurrentImage();
                 }
             }
 
             console.log("mangaImgPos : " + mangaImgPos + "/" + allImages.length + "(" + realAllImageLenght + ")");
 
-            // update scrollbar width (mangaImgPos / allImages.length)
             pourcentScrollManga();
         }
     });

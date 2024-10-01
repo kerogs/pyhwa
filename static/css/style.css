@@ -247,9 +247,6 @@ main section {
   text-decoration: none;
   color: #eef4fc;
 }
-.listchapter #listchapter a:visited {
-  color: #ff8e47;
-}
 .listchapter #listchapter a:hover li {
   background-color: hsl(234, 14%, 20%);
 }
@@ -259,6 +256,13 @@ main section {
   padding: 6px 12px;
   border-radius: 10px;
   font-size: 20px;
+}
+.listchapter #listchapter li.read {
+  color: #ff8e47;
+}
+.listchapter #listchapter li.readprogress {
+  color: #ff8e47;
+  border: 1px solid #ff8e47;
 }
 
 @keyframes reverse180 {
@@ -401,8 +405,17 @@ main section {
   cursor: pointer;
   border-radius: 10px;
 }
-.golastchapter a button span {
+.golastchapter a button span:nth-child(2) {
   display: none;
+}
+.golastchapter a button:hover {
+  background-color: #f45e00;
+}
+.golastchapter a button:hover span:nth-child(1) {
+  display: none;
+}
+.golastchapter a button:hover span:nth-child(2) {
+  display: block;
 }
 
 .backgroundimg {
@@ -428,6 +441,11 @@ main section {
   background: linear-gradient(to top, hsl(234, 14%, 10%), hsla(234, 14%, 10%, 0.4));
 }
 
+@media screen and (max-width: 700px) {
+  .backgroundimg {
+    height: 100vh;
+  }
+}
 .view-info {
   display: flex;
   gap: 20px;
@@ -458,6 +476,7 @@ main section {
 }
 .view-info .right #jsonDescription {
   font-size: 14px;
+  overflow: hidden;
 }
 .view-info .right #jsonDescription a {
   color: #ff8e47;
@@ -479,6 +498,16 @@ main section {
   padding: 4px 6px;
   border-radius: 6px;
 }
+.view-info .right #extendDescription {
+  display: none;
+}
+.view-info .right #extendDescription span {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
 
 @media screen and (max-width: 900px) {
   .view-info .left {
@@ -486,6 +515,22 @@ main section {
   }
   .view-info .right h2 {
     font-size: 1.7em;
+  }
+  .view-info .right #extendDescription {
+    display: block;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    color: #ff8e47;
+  }
+  .view-info .right #extendDescription hr {
+    border: 1px solid #ff8e47;
+  }
+  .view-info .right #jsonDescription {
+    max-height: 119px;
+  }
+  .view-info .right #jsonDescription.extend {
+    max-height: unset !important;
   }
 }
 @media screen and (max-width: 700px) {
@@ -500,13 +545,27 @@ main section {
   }
   .view-info .left .coverImage {
     width: unset;
-    max-height: 400px;
+    max-width: 400px;
     border-radius: 16px;
     transition: 0.4s;
   }
   .view-info .left .coverImage:hover {
     transform: scale(1.05);
     border-radius: 6px;
+  }
+  .view-info .right {
+    display: block;
+  }
+  .view-info .right #jsonDescription {
+    max-height: 100px;
+  }
+  .view-info .right #jsonDescription.extend {
+    max-height: unset !important;
+  }
+}
+@media screen and (max-width: 440px) {
+  .view-info .left .coverImage {
+    max-width: 100%;
   }
 }
 .popupnote {
