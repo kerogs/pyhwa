@@ -1,5 +1,8 @@
-# mgreader
-Small python application for reading manhwa/manhua/manga.
+<div align="center">
+    <img alt="Logo" src=".ksinf/pywha.svg" height="100">
+    <h3>PyWha</h3>
+    <p><em>PyWha is a small python program that lets you read manhwa/manhua/manga from any device on your local network.</em></p>
+</div>
 
 > [!NOTE]
 > The use of HakuNeko is highly recommended for rapid organization.

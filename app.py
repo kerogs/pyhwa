@@ -2,9 +2,40 @@ from flask import Flask, render_template, redirect, url_for
 import os, re, json
 from cover_dl import download_manga_cover 
 
+import sys
+import threading
+import time
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QUrl
+from app import *
+
 DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
+PYWHA_VERSION = "1.2-beta"
 
+def start_flask():
+    app.run(debug=False, port=5000, host="0.0.0.0", use_reloader=False)
+
+# Classe de la fenêtre principale de l'application PyQt5
+class WebApp(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("PyWha - v" + PYWHA_VERSION )  # Nom de la fenêtre PyQt5
+        self.setGeometry(100, 100, 1200, 800)  # Taille et position de la fenêtre
+
+        # Création de la vue du navigateur intégré
+        self.browser = QWebEngineView()
+        self.browser.setUrl(QUrl("http://127.0.0.1:5000"))  # L'URL locale du serveur Flask
+
+        # Disposition de l'interface
+        layout = QVBoxLayout()
+        layout.addWidget(self.browser)
+
+        # Configuration du widget principal
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
 def scanFolder(url: str):
     print("Scanning folder...\n")
@@ -126,12 +157,19 @@ def act_meta():
 
     return redirect(url_for("welcome"))
 
+def main():
+    # Lancer Flask dans un thread séparé
+    flask_thread = threading.Thread(target=start_flask)
+    flask_thread.start()
+
+    # Pause pour laisser Flask démarrer correctement
+    time.sleep(1)
+
+    # Lancer l'application PyQt5
+    app = QApplication(sys.argv)
+    web_app = WebApp()
+    web_app.show()
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
-    print("Starting...\n")
-    all_meta = scanFolder(DATA_PATH)
-    for folder in all_meta:
-        print("Get META for : " + folder)
-        download_manga_cover(folder)
-
-    app.run(debug=True, port=5000, host="0.0.0.0")
+    main()
