@@ -35,6 +35,16 @@ Small python application for reading manhwa/manhua/manga.
 
 
 ## How to use
+### With CLI
+* You can run by typing this line :
+    ```sh
+    flask run
+    ```
+* If you want to share in local network you can type this line =
+```sh
+flask run --host=0.0.0.0 --port=5000
+```
+### With VSCODE
 1. Run app.py with flask (The only way for the moment)
     You can just press ``F5`` in VSCODE and choose ***Flask***
 

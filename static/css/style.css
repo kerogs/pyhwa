@@ -480,6 +480,35 @@ main section {
   border-radius: 6px;
 }
 
+@media screen and (max-width: 900px) {
+  .view-info .left {
+    width: 200px;
+  }
+  .view-info .right h2 {
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 700px) {
+  .view-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .view-info .left {
+    justify-content: center;
+    width: unset;
+    text-align: center;
+  }
+  .view-info .left .coverImage {
+    width: unset;
+    max-height: 400px;
+    border-radius: 16px;
+    transition: 0.4s;
+  }
+  .view-info .left .coverImage:hover {
+    transform: scale(1.05);
+    border-radius: 6px;
+  }
+}
 .popupnote {
   background-color: rgba(255, 142, 71, 0.1254901961);
   border: 1px solid #ff8e47;

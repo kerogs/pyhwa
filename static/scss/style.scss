@@ -5,7 +5,7 @@ $background2: $background-variant-1;
 $background3: $background-variant-2;
 $text: $brand-text;
 $primary: $brand-primary;
-$primary-transparent:#ff8e4720;
+$primary-transparent: #ff8e4720;
 
 * {
     margin: 0;
@@ -88,7 +88,7 @@ body {
     bottom: 10px;
     right: 10px;
 
-    a{
+    a {
         text-decoration: none;
     }
 
@@ -169,7 +169,7 @@ body {
     background-color: $background2;
     transition: .2s;
 
-    &:hover{
+    &:hover {
         height: 10px;
     }
 
@@ -213,18 +213,18 @@ main {
 }
 
 @media screen and (max-width: 1300px) {
-    main.spacearound{
+    main.spacearound {
         margin: 0 20px;
     }
 }
 
-.listchapter-title{
+.listchapter-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 
-    button{
+    button {
         font-size: 20px;
         background: none;
         border: none;
@@ -232,7 +232,7 @@ main {
         color: $text;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
             color: $primary;
         }
     }
@@ -386,7 +386,7 @@ main {
         -webkit-backdrop-filter: blur(5px);
     }
 
-    .ccenter{
+    .ccenter {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -397,21 +397,21 @@ main {
         width: 80vw;
         gap: 10px;
 
-        h2{
+        h2 {
             font-size: 3em;
         }
 
-        .group{
+        .group {
             display: flex;
             flex-direction: row;
             gap: 10px;
 
-            input{
+            input {
                 flex: 1;
             }
         }
 
-        input{
+        input {
             width: 100%;
             padding: 10px;
             border-radius: 10px;
@@ -425,7 +425,7 @@ main {
             transition: .5s;
         }
 
-        button{
+        button {
             width: 100%;
             padding: 10px;
             border-radius: 10px;
@@ -436,23 +436,23 @@ main {
             background-color: $background3;
             color: $text;
 
-            cursor:not-allowed;
+            cursor: not-allowed;
 
-            &.result.active{
+            &.result.active {
                 background-color: $primary;
                 color: $text;
                 cursor: pointer;
 
-                &:hover{
+                &:hover {
                     background-color: darken($primary, 10%);
                 }
             }
 
-            &.close{
+            &.close {
                 cursor: pointer;
                 background-color: $primary;
 
-                &:hover{
+                &:hover {
                     background-color: darken($primary, 10%);
                 }
             }
@@ -475,10 +475,11 @@ main {
     }
 }
 
-.golastchapter{
-    a{
+.golastchapter {
+    a {
         text-decoration: none;
-        button{
+
+        button {
             display: flex;
             margin-top: 12px;
             width: 100%;
@@ -493,27 +494,27 @@ main {
             cursor: pointer;
             border-radius: 10px;
 
-            span{
+            span {
                 display: none;
             }
         }
     }
 }
 
-.backgroundimg{
+.backgroundimg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 60vh;
-    
+
     z-index: -1;
 
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 
-    .filter{
+    .filter {
         position: absolute;
         top: 0;
         left: 0;
@@ -526,51 +527,52 @@ main {
     }
 }
 
-.view-info{
+.view-info {
     display: flex;
     gap: 20px;
-    
-    .left{
+
+    .left {
         width: 300px;
 
-        .coverImage{
+        .coverImage {
             width: 100%;
             border-radius: 16px;
             transition: .4s;
 
-            &:hover{
+            &:hover {
                 transform: scale(1.05);
                 border-radius: 6px;
             }
         }
     }
 
-    .right{
+    .right {
         flex: 1;
-        h2{
+
+        h2 {
             margin-bottom: 10px;
             font-size: 2.3em;
             cursor: default;
 
-            .source{
+            .source {
                 font-size: 12px;
                 color: $primary;
             }
         }
 
-        #jsonDescription{
+        #jsonDescription {
             font-size: 14px;
-            
-            a{
+
+            a {
                 color: $primary;
             }
 
-            hr{
+            hr {
                 display: none;
             }
         }
 
-        #jsonGenres{
+        #jsonGenres {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 10px;
@@ -578,7 +580,7 @@ main {
             font-size: 12px;
             cursor: default;
 
-            > div{
+            >div {
                 background-color: $background2;
                 text-align: center;
                 padding: 4px 6px;
@@ -588,7 +590,50 @@ main {
     }
 }
 
-.popupnote{
+@media screen and (max-width:900px) {
+    .view-info {
+        .left {
+            width: 200px;
+
+        }
+
+        .right {
+            h2 {
+                font-size: 1.7em;
+            }
+
+
+
+        }
+    }
+}
+
+@media screen and (max-width:700px) {
+    .view-info {
+        flex-direction: column;
+        gap: 10px;
+
+        .left {
+            justify-content: center;
+            width: unset;
+            text-align: center;
+
+            .coverImage {
+                width: unset;
+                max-height: 400px;
+                border-radius: 16px;
+                transition: .4s;
+
+                &:hover {
+                    transform: scale(1.05);
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+}
+
+.popupnote {
     background-color: $primary-transparent;
     border: 1px solid $primary;
     padding: 10px;

@@ -96,11 +96,13 @@
         return null;
     }
 
+    console.log("check for lastchapter...");
     const lastchapter = getCookie(document.querySelector("#frckName").textContent);
-
     if (lastchapter != null) {
         document.querySelector("#lastchapter span").innerHTML += lastchapter;
         document.querySelector("#lastchapter").href = "/r/" + document.querySelector("#frckName").textContent + "/" + lastchapter;
+    } else{
+        document.querySelector("#lastchapter").style.display = "none";
     }
 
     const popupSearch = document.querySelector('.popupSearch');

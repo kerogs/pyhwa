@@ -47,5 +47,10 @@ def read(name: str, chapter: str):
     return render_template("read.html", name=name, chapter=chapter, imgs=imgs, chap=chap)
 
 if __name__ == "__main__":
-    download_manga_cover("Arafoo Otoko no Isekai Tsuhan Seikatsu")  # Appel de la fonction au démarrage
-    app.run(debug=True)
+    all_meta = scanFolder(DATA_PATH)
+    for folder in all_meta:
+        print("Get META for : " + folder)
+        download_manga_cover(folder)
+        
+    
+    app.run(debug=True, port=5000, host="0.0.0.0")
