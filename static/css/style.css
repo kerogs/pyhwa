@@ -240,7 +240,7 @@ main section {
 }
 .listchapter #listchapter {
   display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px 10px;
 }
 .listchapter #listchapter a {
@@ -256,6 +256,7 @@ main section {
   padding: 6px 12px;
   border-radius: 10px;
   font-size: 20px;
+  height: 100%;
 }
 .listchapter #listchapter li.read {
   color: #ff8e47;

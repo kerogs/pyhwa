@@ -18,10 +18,19 @@ Small python application for reading manhwa/manhua/manga.
 - Automatic retrieval of manhwa/manhua/manga information
 
 ### Preview
+#### Computer
 <div align="center">
 <img alt="" src=".ksinf/pcprev1.png" width="49%">
 <img alt="" src=".ksinf/pcprev2.png" width="49%">
 </div>
+
+#### Phone
+<div align="center">
+<img alt="" src=".ksinf/pgprev1.bmp" width="25%">
+<img alt="" src=".ksinf/phprev2.bmp" width="25%">
+<img alt="" src=".ksinf/phprev3.jpg" width="25%">
+</div>
+
 
 ## How to install
 1. Clone repository
@@ -82,8 +91,9 @@ Example :
 
 ## Future updates to come.
 - Add everything in an exe file to avoid using commands
-- Best Design
+- Better Design
 - More themes.
 - Cover image support
 - Display a “not yet read” section
 - Make it possible to access the site from a phone.
+- Able to record where you stop (scroll for manhwa and image for manga)
