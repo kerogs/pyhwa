@@ -1,45 +1,21 @@
 from flask import Flask, render_template, redirect, url_for
-import os, re, json, random
-from cover_dl import download_manga_cover
-
-import sys
+import os
+import re
+import json
+import random
+import webbrowser
 import threading
 import time
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtCore import QUrl
-from app import *
+from cover_dl import download_manga_cover
 
 DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
-PyHwa_VERSION = "1.2-beta"
+PYHWA_VERSION = "1.3-beta"
 
 
 def start_flask():
+    print("Démarrage du serveur Flask...")
     app.run(debug=False, port=5000, host="0.0.0.0", use_reloader=False)
-
-
-# Classe de la fenêtre principale de l'application PyQt5
-class WebApp(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("PyHwa - v" + PyHwa_VERSION)  # Nom de la fenêtre PyQt5
-        self.setGeometry(100, 100, 1200, 800)  # Taille et position de la fenêtre
-
-        # Création de la vue du navigateur intégré
-        self.browser = QWebEngineView()
-        self.browser.setUrl(
-            QUrl("http://127.0.0.1:5000")
-        )  # L'URL locale du serveur Flask
-
-        # Disposition de l'interface
-        layout = QVBoxLayout()
-        layout.addWidget(self.browser)
-
-        # Configuration du widget principal
-        central_widget = QWidget()
-        central_widget.setLayout(layout)
-        self.setCentralWidget(central_widget)
 
 
 def scanFolder(url: str):
@@ -60,7 +36,6 @@ def scanFolder(url: str):
                 list(map(int, re.findall(r"\d+", x))) if re.findall(r"\d+", x) else [0]
             )
         )
-
     else:
         print(f"err -> {url} doesn't exist")
 
@@ -87,16 +62,25 @@ def welcome():
                 dataJSON = json.load(f)
         else:
             dataJSON = {"lastchapter": None, "chapterRead": {}}
-            
-        if os.path.exists(DATA_PATH_META+"/"+folder+"/"+folder+".json"):
-            with open(DATA_PATH_META+"/"+folder+"/"+folder+".json", "r", encoding="utf-8") as f:
+
+        if os.path.exists(DATA_PATH_META + "/" + folder + "/" + folder + ".json"):
+            with open(
+                DATA_PATH_META + "/" + folder + "/" + folder + ".json",
+                "r",
+                encoding="utf-8",
+            ) as f:
                 dataJSONfolder = json.load(f)
 
         # Ajouter l'URL de l'image
-        image_url = DATA_PATH_META+"/"+folder+"/"+folder+".jpg"
+        image_url = DATA_PATH_META + "/" + folder + "/" + folder + ".jpg"
 
         # Ajouter les informations dans un dictionnaire pour ce dossier
-        folder_data = {"folder": folder, "metadata": dataJSON, "image_url": image_url, "dataJSONfolder": dataJSONfolder}
+        folder_data = {
+            "folder": folder,
+            "metadata": dataJSON,
+            "image_url": image_url,
+            "dataJSONfolder": dataJSONfolder,
+        }
 
         # Ajouter les données du dossier à la liste des résultats
         results.append(folder_data)
@@ -196,18 +180,14 @@ def act_meta():
 
 
 def main():
-    # Lancer Flask dans un thread séparé
     flask_thread = threading.Thread(target=start_flask)
     flask_thread.start()
 
-    # Pause pour laisser Flask démarrer correctement
     time.sleep(1)
+    
+    webbrowser.open("http://127.0.0.1:5000")
 
-    # Lancer l'application PyQt5
-    app = QApplication(sys.argv)
-    web_app = WebApp()
-    web_app.show()
-    sys.exit(app.exec_())
+    flask_thread.join()
 
 
 if __name__ == "__main__":
