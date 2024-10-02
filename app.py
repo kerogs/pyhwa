@@ -12,7 +12,7 @@ from app import *
 
 DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
-PYWHA_VERSION = "1.2-beta"
+PyHwa_VERSION = "1.2-beta"
 
 def start_flask():
     app.run(debug=False, port=5000, host="0.0.0.0", use_reloader=False)
@@ -21,7 +21,7 @@ def start_flask():
 class WebApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PyWha - v" + PYWHA_VERSION )  # Nom de la fenêtre PyQt5
+        self.setWindowTitle("PyHwa - v" + PyHwa_VERSION )  # Nom de la fenêtre PyQt5
         self.setGeometry(100, 100, 1200, 800)  # Taille et position de la fenêtre
 
         # Création de la vue du navigateur intégré
