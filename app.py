@@ -8,6 +8,7 @@ import threading
 import time
 from cover_dl import download_manga_cover
 
+
 DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
 PYHWA_VERSION = "1.3-beta"

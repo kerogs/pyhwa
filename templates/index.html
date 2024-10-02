@@ -113,7 +113,7 @@
 
         <ul id="listtoread">
             {% for folder in folders %}
-            <a href="/r/{{ folder }}">
+            <a href="/r/{{ folder.folder }}">
                 <li>{{ folder['folder'] }}</li>
             </a>
             {% else %}
