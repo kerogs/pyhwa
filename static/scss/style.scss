@@ -6,6 +6,7 @@ $background3: $background-variant-2;
 $text: $brand-text;
 $primary: $brand-primary;
 $primary-transparent: #ff8e4720;
+$max-width: 1300px;
 
 * {
     margin: 0;
@@ -23,6 +24,173 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: $background;
     color: $text;
+}
+
+// .headerAbsolute{
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     z-index: 999;
+//     margin-bottom: 10px;
+// }
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    margin-bottom: 10px;
+
+    nav {
+        max-width: $max-width;
+        margin: 0 auto;
+        border-radius: 6px;
+        padding: 10px;
+
+        a {
+            text-decoration: none;
+            color: $text;
+            font-size: 20px;
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            justify-content: space-between;
+
+            >div {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                column-gap: 10px;
+                -webkit-column-gap: 10px;
+            }
+
+            li.logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                column-gap: 10px;
+                -webkit-column-gap: 10px;
+
+                svg {
+                    width: 34px;
+                    height: 34px;
+                }
+
+                margin-right: auto;
+            }
+
+            li.search {
+                form {
+                    .group {
+                        background-color: $background-glass;
+                        backdrop-filter: blur(5px);
+                        -webkit-backdrop-filter: blur(5px);
+
+                        display: flex;
+                        gap: 10px;
+                        column-gap: 10px;
+                        -webkit-column-gap: 10px;
+                        padding: 8px 10px;
+
+                        input,
+                        button {
+                            background: none;
+                            border: none;
+                            outline: none;
+                            color: $text;
+                            font-size: 16px;
+
+                            &::placeholder {
+                                color: $text;
+                            }
+                        }
+
+                        button {
+                            cursor: pointer;
+                        }
+
+                        input {
+                            width: 200px;
+                            transition: .2s;
+
+                            &:focus {
+                                width: 300px;
+
+                                &~button i {
+                                    color: $primary;
+                                    animation: 2s fancy-spin forwards;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            li.param {
+                &:hover {
+                    color: $primary;
+                    cursor: pointer;
+                    animation: 2s spin infinite;
+                }
+            }
+        }
+    }
+
+    &.active {
+        background-color: $background;
+        border-bottom: 1px solid $primary;
+
+        nav {
+            ul {
+                li.search {
+                    form {
+                        .group {
+                            background-color: $background2;
+                            backdrop-filter: blur(5px);
+                            -webkit-backdrop-filter: blur(5px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes fancy-spin {
+    0% {
+        transform: rotate(0turn) scale(1);
+    }
+
+    25% {
+        transform: rotate(1turn) scale(1);
+    }
+
+    50% {
+        transform: rotate(1turn) scale(1.5);
+    }
+
+    75% {
+        transform: rotate(1turn) scale(1);
+    }
+
+    100% {
+        transform: rotate(1turn) scale(1);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0turn);
+    }
+
+    100% {
+        transform: rotate(1turn)
+    }
 }
 
 .popupAction {
@@ -203,7 +371,7 @@ body {
 
 
 main {
-    max-width: 1300px;
+    max-width: $max-width;
     margin: 0 auto;
 
     section {
@@ -212,7 +380,7 @@ main {
 
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: $max-width) {
     main.spacearound {
         margin: 0 20px;
     }
@@ -324,11 +492,11 @@ main {
             font-size: 20px;
             height: 100%;
 
-            &.read{
+            &.read {
                 color: $primary;
             }
 
-            &.readprogress{
+            &.readprogress {
                 color: $primary;
                 border: 1px solid $primary;
             }
@@ -510,13 +678,14 @@ main {
                 }
             }
 
-            &:hover{
+            &:hover {
                 background-color: darken($primary, 16%);
-                span{
+
+                span {
                     &:nth-child(1) {
                         display: none;
                     }
-    
+
                     &:nth-child(2) {
                         display: block;
                     }
@@ -531,7 +700,7 @@ main {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60vh;
+    height: 80vh;
 
     z-index: -1;
 
@@ -553,7 +722,7 @@ main {
 }
 
 @media screen and (max-width: 700px) {
-    .backgroundimg{
+    .backgroundimg {
         height: 100vh;
     }
 }
@@ -601,6 +770,7 @@ main {
             hr {
                 display: none;
             }
+
             overflow: hidden;
         }
 
@@ -620,10 +790,10 @@ main {
             }
         }
 
-        #extendDescription{
+        #extendDescription {
             display: none;
 
-            span{
+            span {
                 padding: 10px 0;
                 display: flex;
                 align-items: center;
@@ -645,22 +815,24 @@ main {
                 font-size: 1.7em;
             }
 
-            #extendDescription{
+            #extendDescription {
                 display: block;
                 position: relative;
-                hr{
+
+                hr {
                     border: 1px solid $primary;
                 }
+
                 text-align: center;
 
                 cursor: pointer;
                 color: $primary;
             }
 
-            #jsonDescription{
+            #jsonDescription {
                 max-height: 119px;
 
-                &.extend{
+                &.extend {
                     max-height: unset !important;
                 }
             }
@@ -692,12 +864,13 @@ main {
             }
         }
 
-        .right{
+        .right {
             display: block;
-            #jsonDescription{
+
+            #jsonDescription {
                 max-height: 100px;
 
-                &.extend{
+                &.extend {
                     max-height: unset !important;
                 }
             }
@@ -707,8 +880,8 @@ main {
 
 @media screen and (max-width: 440px) {
     .view-info {
-        .left{
-            .coverImage{
+        .left {
+            .coverImage {
                 max-width: 100%;
             }
         }
@@ -720,4 +893,120 @@ main {
     border: 1px solid $primary;
     padding: 10px;
     color: $text;
+}
+
+#splideindexheader{
+    position: relative;
+    // overflow: hidden;
+
+    .splide__slide{
+        width: 100%;
+        height: 60vh;
+        .img{
+            height: 100%;
+            // background-color: red;
+
+            background-position:center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            .bck{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: $background-glass;
+                background: linear-gradient(to bottom, $background-glass 0%, #ffffff00 50%, $background);
+            }
+        }
+
+        .container{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+
+            .info{
+                z-index: 3;
+                display: flex;
+                align-items:flex-end;
+                gap: 30px;
+                column-gap: 30px;
+                -webkit-column-gap: 30px;
+
+                max-width: $max-width;
+                margin: 30px auto;
+
+                .left{
+                    width: 250px;
+
+                    img{
+                        width: 100%;
+                    }
+                }
+
+                .right{
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    column-gap: 10px;
+                    -webkit-column-gap: 10px;
+                
+                    h2{
+                        font-size: 2.4em;
+                        
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        column-gap: 10px;
+                        -webkit-column-gap: 10px;
+                    }
+
+                    #jsonGenres{
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        column-gap: 10px;
+                        -webkit-column-gap: 10px;
+
+                        > div{
+                            background-color: $background;
+                            padding: 6px 12px;
+                            border-radius: 12px;
+                        }
+                    }
+
+                    .btngroup{
+                        display: flex;
+                        gap: 10px;
+                        column-gap: 10px;
+                        -webkit-column-gap: 10px;
+
+                        button{
+                            padding: 6px 12px;
+                            font-size: 18px;
+                            background-color: $background;
+                            border: none;
+                            outline: none;
+                            border-radius: 10px;
+                            color: $text;
+                            cursor: pointer;
+                            border: 1px solid transparent;
+
+                            &.continue{
+                                background-color: $primary;
+                                color: $text;
+                            }
+
+                            &:hover{
+                                opacity: .8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

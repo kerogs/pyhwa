@@ -8,17 +8,113 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='node_modules/@splidejs/splide/dist/css/splide.min.css') }}">
 </head>
 
 <body>
 
-    <p>list</p>
+    {% include "inc/header.html" %}
+    <script>
+        const scroll = window.pageYOffset;
+        if (scroll !== 0) {
+            document.querySelector('header').style.position = "fixed";
+        } else {
+            document.querySelector('header').style.position = "absolute";
+        }
+
+        // if scroll !== 0 add .active to header
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            if (scroll !== 0) {
+                document.querySelector('header').style.position = "fixed";
+            } else {
+                document.querySelector('header').style.position = "absolute";
+            }
+        });
+    </script>
+
+    <!-- <div id="splideindexheader" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+
+                <li class="splide__slide">
+                    <div class="img" style="background-image: url('https://placewaifu.com/image/2894/4093')">
+                        <div class="bck"></div>
+                    </div>
+
+                    <div class="container">
+                        <div class="info">
+                            <div class="left">
+                                <img src="https://placewaifu.com/image/2894/4093" alt="">
+                            </div>
+                            <div class="right">
+                                <h2><span><i class='bx bx-book-reader'></i></span> <span>Arafoo Otoko no Isekai Tsuhan Seikatsu</span></h2>
+                                <div class="category"></div>
+                                <div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, cupiditate ex. Soluta quasi voluptates alias fuga accusamus omnis! Repellat est, consectetur quis eum possimus hic culpa provident earum optio dolores perferendis commodi velit eaque inventore voluptates voluptatem laborum tempore alias nobis officiis nulla animi enim deserunt. Similique repellat nobis molestiae architecto in mollitia excepturi est iusto, aliquam ex ut voluptate quisquam eaque nulla numquam tempora commodi id repellendus. Alias vel a pariatur ad exercitationem excepturi earum, tempore sequi similique delectus placeat nostrum eveniet facere libero voluptates debitis architecto ratione repudiandae ducimus at eaque maiores accusantium blanditiis cum? Nobis, expedita voluptatum?</div>
+                                <div class="btngroup">
+                                    <a href=""><button><i class='bx bxs-book' ></i> See more</button></a>
+                                    <a href=""><button class="continue"><i class='bx bxs-right-arrow' ></i> continue</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> -->
+
+    <div id="splideindexheader" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                {% for folder in randfolders %}
+                <li class="splide__slide">
+                    <div class="img" style='background-image: url("/{{folder.image_url}}");'>
+                        <div class="bck"></div>
+                    </div>
+
+                    <div class="container">
+                        <div class="info">
+                            <div class="left">
+                                <img src="{{ folder.image_url }}" alt="Cover image for {{ folder.folder }}">
+                            </div>
+                            <div class="right">
+                                <h2><span><i class='bx bx-book-reader'></i></span> <span>{{ folder.metadata.title or
+                                        folder.folder }}</span></h2>
+                                <div id="jsonGenres">
+                                    {% for genre in folder.dataJSONfolder.genres %}
+                                    <div>{{genre}}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="description">{{ folder.dataJSONfolder.description or "No description
+                                    available." }}</div>
+                                <div class="btngroup">
+                                    <a href="/r/{{ folder.folder }}"><button><i class='bx bxs-book'></i> See
+                                            more</button></a>
+                                    {% if folder.metadata.lastChapter != None %}
+                                    <a href="/r/{{ folder.folder }}/{{ folder.metadata.lastChapter}}"><button
+                                            class="continue"><i class='bx bxs-right-arrow'></i> Continue</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
     <main>
+
+        <code>
+            {{folders}}
+        </code>
+
         <ul id="listtoread">
             {% for folder in folders %}
             <a href="/r/{{ folder }}">
-                <li>{{ folder }}</li>
+                <li>{{ folder['folder'] }}</li>
             </a>
             {% else %}
             <li>Aucun fichier ou dossier trouvé.</li>
@@ -29,9 +125,15 @@
     <a href="/r/test">Dire bonjour à Test</a>
 </body>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+<!-- splide -->
+<script src="{{ url_for('static', filename='node_modules/@splidejs/splide/dist/js/splide.min.js')}}"></script>
 <script>
-
-
+    document.addEventListener('DOMContentLoaded', function () {
+        var splide = new Splide('.splide');
+        splide.mount();
+    });
 </script>
 
 </html>

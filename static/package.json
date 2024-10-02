@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@splidejs/splide": "^4.1.4",
     "boxicons": "^2.1.4",
     "showdown": "^2.1.0"
   }

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
-import os, re, json
-from cover_dl import download_manga_cover 
+import os, re, json, random
+from cover_dl import download_manga_cover
 
 import sys
 import threading
@@ -14,19 +14,23 @@ DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
 PyHwa_VERSION = "1.2-beta"
 
+
 def start_flask():
     app.run(debug=False, port=5000, host="0.0.0.0", use_reloader=False)
+
 
 # Classe de la fenêtre principale de l'application PyQt5
 class WebApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PyHwa - v" + PyHwa_VERSION )  # Nom de la fenêtre PyQt5
+        self.setWindowTitle("PyHwa - v" + PyHwa_VERSION)  # Nom de la fenêtre PyQt5
         self.setGeometry(100, 100, 1200, 800)  # Taille et position de la fenêtre
 
         # Création de la vue du navigateur intégré
         self.browser = QWebEngineView()
-        self.browser.setUrl(QUrl("http://127.0.0.1:5000"))  # L'URL locale du serveur Flask
+        self.browser.setUrl(
+            QUrl("http://127.0.0.1:5000")
+        )  # L'URL locale du serveur Flask
 
         # Disposition de l'interface
         layout = QVBoxLayout()
@@ -36,6 +40,7 @@ class WebApp(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
+
 
 def scanFolder(url: str):
     print("Scanning folder...\n")
@@ -68,7 +73,39 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     folders = scanFolder(DATA_PATH)
-    return render_template("index.html", folders=folders)
+    results = []  # Liste qui contiendra les données de chaque dossier
+
+    # Charger les données de chaque dossier
+    for folder in folders:
+        # Chemin du fichier JSON
+        dataJSON_Path = os.path.join(DATA_PATH_META, folder, "localmeta.json")
+        dataJSON = {}
+
+        # Vérifier si le fichier JSON existe et le charger
+        if os.path.exists(dataJSON_Path):
+            with open(dataJSON_Path, "r", encoding="utf-8") as f:
+                dataJSON = json.load(f)
+        else:
+            dataJSON = {"lastchapter": None, "chapterRead": {}}
+            
+        if os.path.exists(DATA_PATH_META+"/"+folder+"/"+folder+".json"):
+            with open(DATA_PATH_META+"/"+folder+"/"+folder+".json", "r", encoding="utf-8") as f:
+                dataJSONfolder = json.load(f)
+
+        # Ajouter l'URL de l'image
+        image_url = DATA_PATH_META+"/"+folder+"/"+folder+".jpg"
+
+        # Ajouter les informations dans un dictionnaire pour ce dossier
+        folder_data = {"folder": folder, "metadata": dataJSON, "image_url": image_url, "dataJSONfolder": dataJSONfolder}
+
+        # Ajouter les données du dossier à la liste des résultats
+        results.append(folder_data)
+
+    # Créer une liste aléatoire de 5 dossiers maximum
+    randfolders = random.sample(results, min(5, len(results)))
+
+    # Retourner les résultats à la page HTML
+    return render_template("index.html", folders=results, randfolders=randfolders)
 
 
 @app.route("/r/<string:name>")
@@ -157,6 +194,7 @@ def act_meta():
 
     return redirect(url_for("welcome"))
 
+
 def main():
     # Lancer Flask dans un thread séparé
     flask_thread = threading.Thread(target=start_flask)
@@ -170,6 +208,7 @@ def main():
     web_app = WebApp()
     web_app.show()
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()
