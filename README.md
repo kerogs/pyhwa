@@ -1,6 +1,6 @@
 <div align="center">
-    <img alt="Logo" src=".ksinf/pywha.svg" height="100">
-    <h3>PyWha</h3>
+    <img alt="Logo" src=".ksinf/pyhwa-icon.png" height="120">
+    <h3>PyHwa</h3>
     <p><em>PyWha is a small python program that lets you read manhwa/manhua/manga from any device on your local network.</em></p>
 </div>
 
@@ -38,7 +38,7 @@
 ## How to install
 1. Clone repository
     ```sh
-    git clone https://github.com/kerogs/mgreader.git
+    git clone https://github.com/kerogs/PyWhaer.git
     ```
 1. Installing NPM packages *(at the root and in the static folder)*
     ```sh
