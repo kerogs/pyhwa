@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import os
 import re
 import json
@@ -12,15 +12,32 @@ from cover_dl import download_manga_cover
 DATA_PATH = "static/content"
 DATA_PATH_META = "static/meta"
 PYHWA_VERSION = "1.3-beta"
+PYHWA_PORT = 5113
+# PYHWA_PORT = 5000
+PYHWA_LOCAL_NETWORK = True
 
 
 def start_flask():
-    print("Démarrage du serveur Flask...")
-    app.run(debug=False, port=5000, host="0.0.0.0", use_reloader=False)
+    print("======================>")
+    print("PyHwa " + PYHWA_VERSION)
+    print("PyHwa Port : " + str(PYHWA_PORT))
+    print("DATA_PATH : " + DATA_PATH)
+    print("DATA_PATH_META : " + DATA_PATH_META)
+    
+    if(PYHWA_LOCAL_NETWORK):
+        print("Pyhwa Local Network : ON")
+        PHLNA = "0.0.0.0"
+    else:
+        print("Pyhwa Local Network : OFF")
+        PHLNA = "127.0.0.1"
+        
+    webbrowser.open("http://127.0.0.1:" + str(PYHWA_PORT))
+    print("======================>\n")
+    app.run(debug=True, port=PYHWA_PORT, host="0.0.0.0", use_reloader=False)
 
 
 def scanFolder(url: str):
-    print("Scanning folder...\n")
+    print("Scanning folder...")
     file_list = []
 
     if os.path.exists(url):
@@ -186,7 +203,7 @@ def main():
 
     time.sleep(1)
     
-    webbrowser.open("http://127.0.0.1:5000")
+    # webbrowser.open("http://127.0.0.1:" + str(PYHWA_PORT))
 
     flask_thread.join()
 

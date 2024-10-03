@@ -100,3 +100,4 @@ Example :
 - Display a “not yet read” section
 - Make it possible to access the site from a phone.
 - Able to record where you stop (scroll for manhwa and image for manga)
+- GUI interface for start and stop server

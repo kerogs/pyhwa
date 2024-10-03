@@ -15,7 +15,13 @@
 
     {% include "inc/header.html" %}
 
+    <div class="full-coverImage" style="display: none;">
+        <i class='bx bx-window-close'></i>
+        <img class="coverImage" src="/{{coverURL}}" alt="">
+    </div>
+
     <main class="spacearound">
+
 
         <div class="backgroundimg" style='background-image: url("/{{coverURL}}");'>
             <div class="filter"></div>
@@ -26,7 +32,9 @@
 
         <div class="view-info">
             <div class="left">
-                <img class="coverImage" src="/{{coverURL}}" alt="">
+                <div class="wrap-coverImage">
+                    <img class="coverImage" src="/{{coverURL}}" alt="">
+                </div>
                 {% if lastChapter != None %}
                 <div class="golastchapter">
                     <a href="/r/{{name}}/{{lastChapter}}" id="lastchapter"><button><span class="continueread">Continue
@@ -46,6 +54,18 @@
                 <p class="popupnote">Note : automatic metadata search are still in the development phase.</p>
             </div>
         </div>
+
+        <script>
+            // zoom coverImage
+            document.querySelector(".wrap-coverImage").addEventListener("click", () => {
+                document.querySelector(".full-coverImage").style.display = "block";
+            })
+
+            // close zoom coverImage
+            document.querySelector(".full-coverImage").addEventListener("click", () => {
+                document.querySelector(".full-coverImage").style.display = "none";
+            })
+        </script>
 
         <section class="listchapter">
             <h2>

@@ -77,6 +77,14 @@
                         <div class="info">
                             <div class="left">
                                 <img src="{{ folder.image_url }}" alt="Cover image for {{ folder.folder }}">
+                                <div class="btngroup">
+                                    <a href="/r/{{ folder.folder }}"><button><i class='bx bxs-book'></i> See
+                                            more</button></a>
+                                    {% if folder.metadata.lastChapter != None %}
+                                    <a href="/r/{{ folder.folder }}/{{ folder.metadata.lastChapter}}"><button
+                                            class="continue"><i class='bx bxs-right-arrow'></i> Continue</button></a>
+                                    {% endif %}
+                                </div>
                             </div>
                             <div class="right">
                                 <h2><span><i class='bx bx-book-reader'></i></span> <span>{{ folder.metadata.title or
@@ -121,7 +129,9 @@
             {% endfor %}
         </ul>
     </main>
+    
     <hr>
+    
     <a href="/r/test">Dire bonjour à Test</a>
 </body>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -131,8 +141,16 @@
 <script src="{{ url_for('static', filename='node_modules/@splidejs/splide/dist/js/splide.min.js')}}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var splide = new Splide('.splide');
+        var splide = new Splide('.splide', {
+            pagination: false,
+            focus:'center',
+            type: 'loop',
+            autoplay: true,
+            interval: 2500
+        });
         splide.mount();
+
+
     });
 </script>
 
