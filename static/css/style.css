@@ -201,6 +201,27 @@ footer .container > div .logo svg {
   height: 40px;
 }
 
+@media screen and (max-width: 1300px) {
+  footer .container {
+    margin: 0 10px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    column-gap: 10px;
+    -webkit-column-gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  footer .container > div {
+    background-color: hsl(234, 14%, 10%);
+    height: 230px;
+    overflow-y: auto;
+    padding: 10px 0;
+  }
+  footer .container > div:nth-child(1) {
+    display: none;
+  }
+}
 .popupAction {
   display: none;
   position: fixed;
@@ -666,6 +687,10 @@ main section {
   max-width: 90vw;
 }
 
+#jsonGenres div.manga {
+  background-color: #ff8e47 !important;
+}
+
 .view-info {
   display: flex;
   gap: 20px;
@@ -713,7 +738,7 @@ main section {
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 10px;
   margin: 10px 0;
-  font-size: 12px;
+  font-size: 16px;
   cursor: default;
 }
 .view-info .right #jsonGenres > div {

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/boxicons/css/boxicons.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <script src="{{ url_for('static', filename='node_modules/showdown/dist/showdown.min.js') }}"></script>
     <meta name="theme-color" content="#ff8e47">
     <link rel="stylesheet"
         href="{{ url_for('static', filename='node_modules/@splidejs/splide/dist/css/splide.min.css') }}">
@@ -34,36 +35,6 @@
             }
         });
     </script>
-
-    <!-- <div id="splideindexheader" class="splide">
-        <div class="splide__track">
-            <ul class="splide__list">
-
-                <li class="splide__slide">
-                    <div class="img" style="background-image: url('https://placewaifu.com/image/2894/4093')">
-                        <div class="bck"></div>
-                    </div>
-
-                    <div class="container">
-                        <div class="info">
-                            <div class="left">
-                                <img src="https://placewaifu.com/image/2894/4093" alt="">
-                            </div>
-                            <div class="right">
-                                <h2><span><i class='bx bx-book-reader'></i></span> <span>Arafoo Otoko no Isekai Tsuhan Seikatsu</span></h2>
-                                <div class="category"></div>
-                                <div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, cupiditate ex. Soluta quasi voluptates alias fuga accusamus omnis! Repellat est, consectetur quis eum possimus hic culpa provident earum optio dolores perferendis commodi velit eaque inventore voluptates voluptatem laborum tempore alias nobis officiis nulla animi enim deserunt. Similique repellat nobis molestiae architecto in mollitia excepturi est iusto, aliquam ex ut voluptate quisquam eaque nulla numquam tempora commodi id repellendus. Alias vel a pariatur ad exercitationem excepturi earum, tempore sequi similique delectus placeat nostrum eveniet facere libero voluptates debitis architecto ratione repudiandae ducimus at eaque maiores accusantium blanditiis cum? Nobis, expedita voluptatum?</div>
-                                <div class="btngroup">
-                                    <a href=""><button><i class='bx bxs-book' ></i> See more</button></a>
-                                    <a href=""><button class="continue"><i class='bx bxs-right-arrow' ></i> continue</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div> -->
 
     <div id="splideindexheader" class="splide">
         <div class="splide__track">
@@ -100,12 +71,12 @@
                                     <span>{{ folder.metadata.title or folder.folder }}</span>
                                 </h2>
                                 <div id="jsonGenres">
-                                    {% for genre in folder.dataJSONfolder.genres %}
+                                    <div class="{{folder.dataJSONfolder.type}}">{{folder.dataJSONfolder.type}}</div>
+                                    {% for genre in folder.dataJSONfolder.attributes.tags %}
                                     <div>{{genre}}</div>
                                     {% endfor %}
                                 </div>
-                                <div class="description">{{ folder.dataJSONfolder.description or "No description
-                                    available." }}</div>
+                                <div class="description">{{ folder.dataJSONfolder.attributes.description }}</div>
                                 <div class="btngroup">
                                     <a href="/r/{{ folder.folder }}"><button><i class='bx bxs-book'></i> See
                                             more</button></a>
@@ -154,7 +125,8 @@
                                 <div class="right">
                                     <h3>{{folder.folder}}</h3>
                                     <div class="description">
-                                        {{ folder.dataJSONfolder.description or "No description available." }}
+                                        {{ folder.dataJSONfolder.attributes.description or "No description available."
+                                        }}
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +171,8 @@
                                 <div class="right">
                                     <h3>{{folder.folder}}</h3>
                                     <div class="description">
-                                        {{ folder.dataJSONfolder.description or "No description available." }}
+                                        {{ folder.dataJSONfolder.attributes.description or "No description available."
+                                        }}
                                     </div>
                                 </div>
                             </div>
@@ -258,6 +231,7 @@
         </section>
     </main>
 
+
     {% include 'inc/footer.html' %}
 
 </body>
@@ -294,6 +268,18 @@
 
     totalRead = document.querySelectorAll('#badgeRead .badge').length;
     document.querySelector("#totalRead").innerHTML = totalRead;
+
+
+
+
+
+
+    const converter = new showdown.Converter();
+
+    document.querySelectorAll("#jsonDescription").forEach(element => {
+        let htmlDescription = converter.makeHtml(element.textContent || "");
+        element.innerHTML = htmlDescription;
+    });
 </script>
 
 </html>

@@ -4,7 +4,7 @@ import re
 import json
 import random
 import webbrowser
-from python.helpers import download_manga_cover, scanFolder
+from python.helpers import auto_update_metadata, scanFolder
 from config import *
 
 def start_flask():
@@ -13,6 +13,7 @@ def start_flask():
     print("PyHwa Port : " + str(PYHWA_PORT))
     print("DATA_PATH : " + DATA_PATH)
     print("DATA_PATH_META : " + DATA_PATH_META)
+    print("EN_LOGS : " + str(EN_LOGS))
     
     if(PYHWA_LOCAL_NETWORK):
         print("Pyhwa Local Network : ON")
@@ -23,32 +24,9 @@ def start_flask():
         
     webbrowser.open("http://127.0.0.1:" + str(PYHWA_PORT))
     print("======================>\n")
-    app.run(debug=True, port=PYHWA_PORT, host="0.0.0.0", use_reloader=False)
-
-
-def scanFolder(url: str):
-    print("Scanning folder...")
-    file_list = []
-
-    if os.path.exists(url):
-        for item in os.listdir(url):
-            item_path = os.path.join(url, item)
-            if item != ".gitkeep":
-                file_list.append(item)
-                print("found : " + item_path)
-            else:
-                print("ignored : " + item_path)
-
-        file_list.sort(
-            key=lambda x: (
-                list(map(int, re.findall(r"\d+", x))) if re.findall(r"\d+", x) else [0]
-            )
-        )
-    else:
-        print(f"err -> {url} doesn't exist")
-
-    return file_list
-
+    logWriter("Starting PyHwa server...", "info")
+    app.run(debug=True, port=PYHWA_PORT, host=PHLNA, use_reloader=False)
+    
 
 app = Flask(__name__)
 
@@ -97,6 +75,8 @@ def welcome():
     randfolders = random.sample(results, min(5, len(results)))
 
     # Retourner les résultats à la page HTML
+    
+    logWriter("index.html -> " + str(results))
     return render_template("index.html", folders=results, randfolders=randfolders)
 
 
@@ -127,8 +107,6 @@ def view(name: str):
             dataJSONauto = json.load(f)
     else:
         dataJSONauto = {}
-    genres = dataJSONauto.get("genres")
-    description = dataJSONauto.get("description")
 
     return render_template(
         "view.html",
@@ -137,8 +115,8 @@ def view(name: str):
         lastChapter=lastChapter,
         chapterAlreadyRead=chapterAlreadyRead,
         coverURL=coverURL,
-        genres=genres,
-        description=description,
+        dataJSONauto=dataJSONauto,
+        dataJSON=dataJSON
     )
 
 
@@ -182,8 +160,11 @@ def act_meta():
     folders = scanFolder(DATA_PATH)
     for folder in folders:
         print("Get META for : " + folder)
-        download_manga_cover(folder)
-
+        auto_update_metadata(folder)
+        # download_manga_cover(folder)
+        
+        
+    logWriter("Prepare auto update metadata (from URL)", "info")
     return redirect(url_for("welcome"))
 
 @app.route("/settings")

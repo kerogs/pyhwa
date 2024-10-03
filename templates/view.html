@@ -26,8 +26,8 @@
         <div class="backgroundimg" style='background-image: url("/{{coverURL}}");'>
             <div class="filter"></div>
         </div>
-            <!-- <a href="/"><button><i class='bx bxs-home-alt-2'></i></button></a> -->
-            <h1 style="text-align: center;display:none;" id="frckName">{{name}}</h1>
+        <!-- <a href="/"><button><i class='bx bxs-home-alt-2'></i></button></a> -->
+        <h1 style="text-align: center;display:none;" id="frckName">{{name}}</h1>
 
 
         <div class="view-info">
@@ -43,11 +43,15 @@
                 {% endif %}
             </div>
             <div class="right">
-                <h2>{{name}} <span class="source">from mangadex</span></h2>
-                <div id="jsonDescription">{{description}}</div>
-                <div id="extendDescription"><hr><span id="msgextend"><i class='bx bxs-chevrons-down'></i> Extend description <i class='bx bxs-chevrons-down'></i></span></div>
+                <h2>{{name}}</h2>
+                <div id="jsonDescription">{{dataJSONauto.attributes.description}}</div>
+                <div id="extendDescription">
+                    <hr><span id="msgextend"><i class='bx bxs-chevrons-down'></i> Extend description <i
+                            class='bx bxs-chevrons-down'></i></span>
+                </div>
                 <div id="jsonGenres">
-                    {% for genre in genres %}
+                    <div class="{{dataJSONauto.type}}">{{dataJSONauto.type}}</div>
+                    {% for genre in dataJSONauto.attributes.tags %}
                     <div>{{genre}}</div>
                     {% endfor %}
                 </div>
@@ -75,17 +79,18 @@
             </h2>
             <ul id="listchapter">
                 {% for chapter in chap %}
-                    <a href="/r/{{ name }}/{{ chapter }}">
-                        <li class="{% if chapter == lastChapter %}readprogress{% elif chapter in chapterAlreadyRead %}read{% endif %}">
-                            {{ chapter }}
-                        </li>
-                    </a>
+                <a href="/r/{{ name }}/{{ chapter }}">
+                    <li
+                        class="{% if chapter == lastChapter %}readprogress{% elif chapter in chapterAlreadyRead %}read{% endif %}">
+                        {{ chapter }}
+                    </li>
+                </a>
                 {% else %}
-                    <li>Aucun fichier ou dossier trouvé.</li>
+                <li>Aucun fichier ou dossier trouvé.</li>
                 {% endfor %}
             </ul>
         </section>
-        
+
     </main>
 
     <div class="popupSearch">
@@ -197,39 +202,13 @@
         });
     });
 
-    const jsonPath = `/static/meta/{{name}}/{{name}}.json`; 
+    
+    const converter = new showdown.Converter();
 
-    fetch(jsonPath)
-        .then(response => {
-            console.log("Response status:", response.status);
-            if (!response.ok) {
-                throw new Error("Erreur lors de la récupération du fichier JSON: " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Données récupérées :", data);
-            let nameData = data;
-            console.log("Nom du manga :", nameData.title);
-            // nameData.alternative_titles.forEach(element => {
-            //     console.log("Titre alternatif :", element);
-            // });
-
-            // console.log("Image de couverture :", nameData.cover_image_url);
-            // document.querySelector('.backgroundimg').style.backgroundImage = 'url("/static/meta/{{name}}/{{name}}.jpg")';
-            // document.querySelector('.coverImage').src = '/static/meta/{{name}}/{{name}}.jpg';
-
-            // nameData.genres.forEach(element => {
-            //     document.querySelector('#jsonGenres').innerHTML += `<div>${element}</div>`;
-            // });
-
-
-            var converter = new showdown.Converter();
-            document.querySelector('#jsonDescription').innerHTML = converter.makeHtml(nameData.description);
-        })
-        .catch(error => {
-            console.error("Il y a eu un problème avec la récupération des données :", error);
-        });
+    document.querySelectorAll("#jsonDescription").forEach(element => {
+        let htmlDescription = converter.makeHtml(element.textContent || "");
+        element.innerHTML = htmlDescription;
+    });
 
 
 </script>

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "js/",
+        "noEmitOnError": true,
+        "target": "ES6"
+    },
+    "include": [
+        "ts/**/*.ts",
+        "ts/*.ts",
+    ],
+    "typeRoots": [
+        "./node_modules/@types",
+        "./types"  // Ajoutez ce chemin vers votre dossier de types personnalisés
+    ]
+}

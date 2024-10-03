@@ -11,6 +11,7 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
     "boxicons": "^2.1.4",
-    "showdown": "^2.1.0"
+    "showdown": "^2.1.0",
+    "typescript": "^5.6.2"
   }
 }
