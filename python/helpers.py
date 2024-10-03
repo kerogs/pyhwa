@@ -1,6 +1,31 @@
 import requests
 import os
 import json
+import re
+
+def scanFolder(url: str):
+    print("Scanning folder...")
+    file_list = []
+
+    if os.path.exists(url):
+        for item in os.listdir(url):
+            item_path = os.path.join(url, item)
+            if item != ".gitkeep":
+                file_list.append(item)
+                print("found : " + item_path)
+            else:
+                print("ignored : " + item_path)
+
+        file_list.sort(
+            key=lambda x: (
+                list(map(int, re.findall(r"\d+", x))) if re.findall(r"\d+", x) else [0]
+            )
+        )
+    else:
+        print(f"err -> {url} doesn't exist")
+
+    return file_list
+
 
 def download_manga_cover(manga_name):
     manga_name_encoded = manga_name.replace(" ", "%20")
