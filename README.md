@@ -1,7 +1,7 @@
 <div align="center">
     <img alt="Logo" src=".ksinf/pyhwa-icon.png" height="120">
     <h3>PyHwa</h3>
-    <p><em>PyHwa is a small python program that lets you read manhwa/manhua/manga from any device on your local network.</em></p>
+    <p><em>PyHwa is a lightweight Python application for reading manhwa, manhua, and manga across devices on your local network. It offers seamless viewing, tracks your reading progress, and allows customization with multiple themes.</em></p>
 </div>
 
 > [!NOTE]
@@ -19,8 +19,6 @@
 - multiple themes (coming soon)
 - Automatic metadata search (still in development phase)
 - Automatic retrieval of manhwa/manhua/manga information
-
-*python is required!*
 
 ### Preview
 #### Computer
@@ -46,21 +44,17 @@
     ```sh
     npm i;cd static; npm i
     ```
+1. download python requirements
+    ```sh
+    pip 
+    ```
 
 
 ## How to use
 ### With CLI
-* You can run by typing this line :
-    ```sh
-    flask run
-    ```
-* If you want to share in local network you can type this line =
 ```sh
-flask run --host=0.0.0.0 --port=5000
+py .\app.py
 ```
-### With VSCODE
-1. Run app.py with flask (The only way for the moment)
-    You can just press ``F5`` in VSCODE and choose ***Flask***
 
 ## How to add manhwa/manhua/manga
 Everything must be put in the ``/static/`` folder.

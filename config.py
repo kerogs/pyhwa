@@ -1,7 +1,7 @@
 import configparser
 import logging
 
-PYHWA_VERSION = "1.3-beta"
+PYHWA_VERSION = "1.4-beta"
 
 
 # ? load pyhwa.ini
