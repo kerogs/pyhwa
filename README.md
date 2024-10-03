@@ -20,6 +20,8 @@
 - Automatic metadata search (still in development phase)
 - Automatic retrieval of manhwa/manhua/manga information
 
+*python is required!*
+
 ### Preview
 #### Computer
 <div align="center">
