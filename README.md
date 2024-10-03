@@ -23,15 +23,18 @@
 ### Preview
 #### Computer
 <div align="center">
-<img alt="" src=".ksinf/pcprev1.png" width="49%">
-<img alt="" src=".ksinf/pcprev2.png" width="49%">
+<img alt="" src=".ksinf/prev/computer/pv1.png" width="49%">
+<img alt="" src=".ksinf/prev/computer/pv2.png" width="49%">
+<img alt="" src=".ksinf/prev/computer/pv3.png" width="49%">
+<img alt="" src=".ksinf/prev/computer/pv4.png" width="49%">
 </div>
 
 #### Phone
 <div align="center">
-<img alt="" src=".ksinf/pgprev1.bmp" width="25%">
-<img alt="" src=".ksinf/phprev2.bmp" width="25%">
-<img alt="" src=".ksinf/phprev3.jpg" width="25%">
+<img alt="" src=".ksinf/prev/phone/pv1.jpg" width="24%">
+<img alt="" src=".ksinf/prev/phone/pv2.jpg" width="24%">
+<img alt="" src=".ksinf/prev/phone/pv3.jpg" width="24%">
+<img alt="" src=".ksinf/prev/phone/pv4.jpg" width="24%">
 </div>
 
 
