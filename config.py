@@ -1,7 +1,11 @@
 import configparser
 import logging
+import json
 
-PYHWA_VERSION = "1.4-beta"
+# ! Never change these values.
+PYHWA_VERSION = "1.5-beta"
+PYHWA_LICENSE = "GNU AGPL v3.0"
+PYHWA_REPO = "https://github.com/kerogs/pyhwa"
 
 
 # ? load pyhwa.ini
@@ -18,7 +22,7 @@ PYHWA_PORT = config["server"]["port"]
 PYHWA_LOCAL_NETWORK = config.getboolean("server", "allow_local_network")
 EN_LOGS = config.getboolean("logs", "logs_enable")
 LVL_LOGS = config.get("logs", "logs_level")
-AUTO_META_SOURCE = config.get("server", "auto_meta_source")
+AUTO_META_SOURCE = config.get("metadata", "auto_meta_source") 
 
 # ? logging
 logger = logging.getLogger("pyhwa")
@@ -37,19 +41,40 @@ ch.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(ch)
 
-
-# ? show settings
-allConfig = [
-    {
-        "data_path": DATA_PATH,
-        "data_path_meta": DATA_PATH_META,
-        "port": PYHWA_PORT,
-        "local_network": PYHWA_LOCAL_NETWORK,
-        "enable_logs": EN_LOGS,
-        "logs_level": LVL_LOGS,
+# ? all settings
+allConfig = {
+    "version": PYHWA_VERSION,
+    "license": PYHWA_LICENSE, 
+    "repo": PYHWA_REPO,
+    
+    "attributes": {
+        
+        "server_configuration": {
+            "port": PYHWA_PORT,
+            "local_network": PYHWA_LOCAL_NETWORK,
+        },
+        
+        "metadata_configuration": {"auto_meta_source": AUTO_META_SOURCE},
+        
+        "data_paths": {
+            "data_path": DATA_PATH,
+            "data_path_meta": DATA_PATH_META,
+        },
+        
+        "logs": {
+            "enable_logs": EN_LOGS,
+            "logs_level": LVL_LOGS,
+        },
+        
     }
-]
+}
 
+# ? write settings
+statusPath = "static/json/server_status.json"
+with open(statusPath, "w") as f:
+    json.dump(allConfig, f, indent=4)
+
+# ? logs 
 def logWriter(msg, lvl="debug"):
     if EN_LOGS:
         if lvl == "debug":
@@ -63,5 +88,6 @@ def logWriter(msg, lvl="debug"):
         return True
     else:
         return False
-    
-logWriter("var preview " + str(allConfig))
+
+
+# logWriter("var preview " + str(allConfig))

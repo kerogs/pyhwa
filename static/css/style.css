@@ -200,6 +200,13 @@ footer .container > div .logo svg {
   width: 40px;
   height: 40px;
 }
+footer .container > div .status li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  column-gap: 4px;
+  -webkit-column-gap: 4px;
+}
 
 @media screen and (max-width: 1300px) {
   footer .container {

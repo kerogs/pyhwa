@@ -26,12 +26,15 @@
             <ul>
                 <li class="title">PyHwa project</li>
                 <li><a target="_blank" href="https://github.com/kerogs/pyhwa">Project github page</a></li>
-                <li><a href="https://github.com/kerogs/pyhwa/releases/latest" target="_blank">Latest release</a> <span>|</span> <a href="https://github.com/kerogs/pyhwa/releases">All releases</a></li>
-                
+                <li><a href="https://github.com/kerogs/pyhwa/releases/latest" target="_blank">Latest release</a>
+                    <span>|</span> <a href="https://github.com/kerogs/pyhwa/releases">All releases</a></li>
+
                 <li class="title">Github</li>
                 <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/LICENSE">License</a></li>
-                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/CONTRIBUTING.md">Contributing</a></li>
-                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a></li>
+                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/CONTRIBUTING.md">Contributing</a>
+                </li>
+                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/CODE_OF_CONDUCT.md">Code of
+                        conduct</a></li>
                 <li><a target="_blank" href="https://github.com/kerogs/pyhwa/issues">Issues</a></li>
 
                 <li class="title">Other</li>
@@ -45,7 +48,8 @@
                 <li><a href="">Download APP (working...)</a></li>
 
                 <li class="title">Credits & License</li>
-                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/README.md#credits">Credits</a></li>
+                <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/README.md#credits">Credits</a>
+                </li>
                 <li><a target="_blank" href="https://github.com/kerogs/pyhwa/blob/main/LICENSE">License</a></li>
             </ul>
         </div>
@@ -65,12 +69,34 @@
                 <li><a href="/settings">Settings</a></li>
                 <li><a href="/act/meta">Update metadata</a></li>
                 <li class="title">Information</li>
-                <li>Version: XXXX</li>
-                <li>Port: XXXX</li>
-                <li>Data: XXX</li>
-                <li>Meta: XXX</li>
-                <li>Local Network: On</li>
+                <div class="status">
+                    <li><i class='bx bxl-git'></i> Version <b id="version">Load...</b></li>
+                    <li><i class='bx bxs-door-open'></i> Port <b id="port">Load...</b></li>
+                    <li><i class='bx bxs-data'></i> Data <b id="data">Load...</b></li>
+                    <li><i class='bx bx-data'></i> Meta <b id="meta">Load...</b></li>
+                    <li><i class='bx bx-network-chart'></i> Local Network <b id="localNetwork">Load...</b></li>
+                </div>
             </ul>
         </div>
     </div>
 </footer>
+
+<script>
+    srv_statusPath = "{{ url_for('static', filename='json/server_status.json') }}";
+    fetch(srv_statusPath).then(r => r.text()).then(data => {
+        srv_status = JSON.parse(data);
+        console.log(srv_status);
+
+        document.getElementById("version").innerHTML = srv_status.version;
+        document.getElementById("port").innerHTML = srv_status.attributes.server_configuration.port;
+        document.getElementById("data").innerHTML = srv_status.attributes.data_paths.data_path;
+        document.getElementById("meta").innerHTML = srv_status.attributes.data_paths.data_path_meta;
+
+        if (srv_status.attributes.server_configuration.local_network) {
+            document.getElementById("localNetwork").innerHTML = "Yes";
+        } else {
+            document.getElementById("localNetwork").innerHTML = "No";
+        }
+    })
+
+</script>

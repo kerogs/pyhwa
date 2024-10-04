@@ -1,5 +1,5 @@
 <div align="center">
-    <img alt="Logo" src=".ksinf/pyhwa-icon.png" height="120">
+    <img alt="Logo" src=".ksinf/pyhwa.svg" height="120">
     <h3>PyHwa</h3>
     <p><em>PyHwa is a lightweight Python application for reading manhwa, manhua, and manga across devices on your local network. It offers seamless viewing, tracks your reading progress, and allows customization with multiple themes.</em></p>
 </div>
