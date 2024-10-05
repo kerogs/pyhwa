@@ -10,7 +10,6 @@ PyHwa is provided "as is," and we, the PyHwa development team, are **not respons
 **At this time**, PyHwa should not be accessible from other networks or the public internet. We strongly recommend **limiting access to PyHwa** to devices within your local network or VPN-protected environments. Exposing PyHwa to the internet without adequate protections or network segmentation may lead to potential security risks, such as:
 - Unauthenticated access.
 - Vulnerability to brute-force attacks or other unauthorized access attempts.
-- Exposure of sensitive data through unsecured connections.
 
 **Internet Access**: By default, PyHwa accesses certain websites (such as MangaDex or AniList) to retrieve and update metadata. This access is necessary for syncing and updating this information, but it only occurs once unless a manual update is requested. If desired, this functionality can be **disabled**. If a site becomes unreliable or insecure, it is important to **immediately report the issue** by opening an issue to inform the project's creators and collaborators.
 
