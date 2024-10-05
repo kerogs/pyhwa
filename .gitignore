@@ -173,3 +173,7 @@ static/content/*
 static/meta/*
 !static/meta/.gitkeep
 static/json/server_status.json
+
+# dev python
+dev/*
+!dev/.gitkeep
