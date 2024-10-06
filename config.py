@@ -10,7 +10,10 @@ PYHWA_REPO = "https://github.com/kerogs/pyhwa"
 
 # ? load pyhwa.ini
 config = configparser.ConfigParser()
-config.read("pyhwa.ini")
+
+with open("pyhwa.ini", "r", encoding="utf-8") as configfile:
+    config.read_file(configfile)
+    
 # DATA_PATH = "static/content"
 DATA_PATH = config["path"]["DATA_PATH"]
 # DATA_PATH_META = "static/meta"
@@ -23,6 +26,9 @@ PYHWA_LOCAL_NETWORK = config.getboolean("server", "allow_local_network")
 EN_LOGS = config.getboolean("logs", "logs_enable")
 LVL_LOGS = config.get("logs", "logs_level")
 AUTO_META_SOURCE = config.get("metadata", "auto_meta_source") 
+INDEX_AUTOMETA = config.getboolean("metadata", "index_autometa")
+SERVER_REQUIRES_LOGIN = config.getboolean("security", "server_requires_login")
+ADMIN_REQUIRES_LOGIN = config.getboolean("security", "admin_requires_login")
 
 # ? logging
 logger = logging.getLogger("pyhwa")
