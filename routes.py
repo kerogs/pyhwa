@@ -34,15 +34,12 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     folders = scanFolder(DATA_PATH)
-    results = []  # Liste qui contiendra les données de chaque dossier
+    results = []
 
-    # Charger les données de chaque dossier
     for folder in folders:
-        # Chemin du fichier JSON
         dataJSON_Path = os.path.join(DATA_PATH_META, folder, "localmeta.json")
         dataJSON = {}
 
-        # Vérifier si le fichier JSON existe et le charger
         if os.path.exists(dataJSON_Path):
             with open(dataJSON_Path, "r", encoding="utf-8") as f:
                 dataJSON = json.load(f)
@@ -57,24 +54,31 @@ def welcome():
             ) as f:
                 dataJSONfolder = json.load(f)
 
-        # Ajouter l'URL de l'image
         image_url = DATA_PATH_META + "/" + folder + "/" + folder + ".jpg"
+        
+        folderChapList = scanFolder(DATA_PATH + "/" + folder)
 
-        # Ajouter les informations dans un dictionnaire pour ce dossier
         folder_data = {
             "folder": folder,
             "metadata": dataJSON,
             "image_url": image_url,
             "dataJSONfolder": dataJSONfolder,
+            "lastchaptername": folderChapList[-1],
+            "totalchapters": len(folderChapList),
         }
 
-        # Ajouter les données du dossier à la liste des résultats
         results.append(folder_data)
 
-    # Créer une liste aléatoire de 5 dossiers maximum
     randfolders = random.sample(results, min(5, len(results)))
 
-    # Retourner les résultats à la page HTML
+    
+    # ? check if INDEX_AUTOMETA is True
+    if INDEX_AUTOMETA:
+        logWriter("index.html -> Auto update metadata from URL", "info")
+        for result in folders:
+            print("Get META for : " + result)
+            auto_update_metadata(result)
+        
     
     logWriter("index.html -> " + str(results))
     return render_template("index.html", folders=results, randfolders=randfolders)

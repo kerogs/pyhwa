@@ -22,7 +22,6 @@
 
     <main class="spacearound">
 
-
         <div class="backgroundimg" style='background-image: url("/{{coverURL}}");'>
             <div class="filter"></div>
         </div>
@@ -43,7 +42,17 @@
                 {% endif %}
             </div>
             <div class="right">
-                <h2>{{name}}</h2>
+                <h2>
+                    {% set last_chapter_read = chap | last %}
+                    {% if lastChapter == last_chapter_read %}
+                    <i class='bx bxs-bookmark'></i>
+                    {% elif lastChapter in chapterAlreadyRead %}
+                    <i title="Read" class='bx bx-book-reader'></i>
+                    {% else %}
+                    <i class='bx bxs-book'></i>
+                    {% endif %}
+                    {{name}}
+                </h2>
                 <div id="jsonDescription">{{dataJSONauto.attributes.description}}</div>
                 <div id="extendDescription">
                     <hr><span id="msgextend"><i class='bx bxs-chevrons-down'></i> Extend description <i
@@ -114,7 +123,7 @@
     document.querySelector("#extendDescription").addEventListener("click", () => {
         document.querySelector("#jsonDescription").classList.toggle("extend");
 
-        if(document.querySelector("#jsonDescription").classList.contains("extend")) {
+        if (document.querySelector("#jsonDescription").classList.contains("extend")) {
             document.querySelector("#extendDescription span#msgextend").innerHTML = "<i class='bx bxs-chevrons-up' ></i> Reduce description <i class='bx bxs-chevrons-up' ></i>";
         } else {
             document.querySelector("#extendDescription span#msgextend").innerHTML = "<i class='bx bxs-chevrons-down'></i> Extend description <i class='bx bxs-chevrons-down'></i>";
@@ -164,7 +173,7 @@
     search.addEventListener('input', () => {
         const searchTerm = search.value.toLowerCase();
         const listchapter = document.querySelector('#listchapter');
-        const chapters = Array.from(listchapter.querySelectorAll('li')); 
+        const chapters = Array.from(listchapter.querySelectorAll('li'));
 
         if (searchTerm === '') {
             document.querySelector('.ccenter .group .close').style.display = 'block';
@@ -179,9 +188,9 @@
         chapters.forEach(chapter => {
             const anchor = chapter.closest('a');
             if (chapter.textContent.toLowerCase().includes(searchTerm)) {
-                anchor.style.display = ''; 
+                anchor.style.display = '';
             } else {
-                anchor.style.display = 'none'; 
+                anchor.style.display = 'none';
             }
         });
     });
@@ -202,7 +211,7 @@
         });
     });
 
-    
+
     const converter = new showdown.Converter();
 
     document.querySelectorAll("#jsonDescription").forEach(element => {

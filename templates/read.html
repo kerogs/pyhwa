@@ -183,6 +183,7 @@
         showStyle = "manga";
         setCookie("showStyle", "mangaStyle", 7);
         console.log("CookieSaved : " + showStyle);
+        document.querySelector(".read_title").style.display = "none";
     }
 
 
@@ -262,6 +263,10 @@
             }
 
             pourcentScrollManga();
+
+            document.querySelector(".read_title").style.display = "none";
+        } else{
+            document.querySelector(".read_title").style.display = "block";
         }
     })
 

@@ -201,6 +201,8 @@ def auto_meta_mangadex(manga_name):
         logWriter("(def auto_meta_mangadex) ERROR : " + str(e), "error")
 
 
+
+# ! DEPRECATED
 def download_manga_cover(manga_name):
     logWriter("DEPRECATED METHOD FOR AUTO META", "warning")
     manga_name_encoded = manga_name.replace(" ", "%20")

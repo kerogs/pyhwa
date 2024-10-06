@@ -62,10 +62,12 @@
                             <div class="right">
                                 <h2>
                                     <span>
-                                        {% if folder.metadata.lastchapter != None %}
-                                        <i title="Continue" class='bx bx-book-reader'></i>
+                                        {% if folder.metadata.lastChapter == folder.lastchaptername %}
+                                        <i title="Finished" class='bx bxs-bookmark'></i>
+                                        {% elif folder.metadata.lastchapter != None %}
+                                        <i title="Continue" class='bx bxs-book-reader'></i>
                                         {% else %}
-                                        <i title="Unread" class='bx bxs-ghost'></i>
+                                        <i class='bx bxs-book'></i>
                                         {% endif %}
                                     </span>
                                     <span>{{ folder.metadata.title or folder.folder }}</span>
@@ -80,9 +82,14 @@
                                 <div class="btngroup">
                                     <a href="/r/{{ folder.folder }}"><button><i class='bx bxs-book'></i> See
                                             more</button></a>
-                                    {% if folder.metadata.lastchapter != None %}
+                                    {% if folder.metadata.lastchapter != None and folder.metadata.lastChapter !=
+                                    folder.lastchaptername %}
                                     <a href="/r/{{ folder.folder }}/{{ folder.metadata.lastChapter}}"><button
                                             class="continue"><i class='bx bxs-right-arrow'></i> Continue</button></a>
+                                    {% endif %}
+                                    {% if folder.metadata.lastChapter == folder.lastchaptername %}
+                                    <a href="/r/{{ folder.folder }}/{{ folder.metadata.lastChapter}}"><button
+                                            class="finished"><i class='bx bxs-bookmark'></i> Finished</button></a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -123,7 +130,7 @@
                                 </div>
 
                                 <div class="right">
-                                    <h3>{{folder.folder}}</h3>
+                                    <h3><i class='bx bxs-book-reader'></i> {{folder.folder}}</h3>
                                     <div class="description">
                                         {{ folder.dataJSONfolder.attributes.description or "No description available."
                                         }}
@@ -146,7 +153,7 @@
         <section>
 
             <h2 class="title">
-                <span><i class='bx bxs-ghost'></i> Unread</span>
+                <span><i class='bx bxs-book'></i> Unread</span>
                 <span class="badge">Total <b id="totalUnread"></b></span>
             </h2>
             <div class="cardlist">
@@ -169,7 +176,7 @@
                                 </div>
 
                                 <div class="right">
-                                    <h3>{{folder.folder}}</h3>
+                                    <h3><i class='bx bxs-book'></i> {{folder.folder}}</h3>
                                     <div class="description">
                                         {{ folder.dataJSONfolder.attributes.description or "No description available."
                                         }}
@@ -188,6 +195,44 @@
 
         </section>
 
+
+
+
+
+
+
+        <!-- finished -->
+        <section>
+
+            <h2 class="title">
+                <span><i class='bx bxs-bookmark'></i> Finished</span>
+                <span class="badge">Total <b id="totalfinished"></b></span>
+            </h2>
+            <div class="cardlist">
+
+                <div class="style_card">
+
+                    {% for folder in folders %}
+                    {% if folder.metadata.lastChapter == folder.lastchaptername %}
+                    <a style="opacity: .5;" href="/r/{{ folder.folder }}">
+                        <div class="card">
+                            <img src="{{ folder.image_url }}" alt="">
+                            <div class="bck"></div>
+                            <div class="content">
+                                <h3><i class='bx bxs-bookmark'></i> {{ folder.folder }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <p>Aucun fichier ou dossier trouvé.</p>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
 
 
 
@@ -211,15 +256,38 @@
                 <div class="style_card">
 
                     {% for folder in folders %}
+
+                    {% if folder.metadata.lastChapter == folder.lastchaptername %}
+                    <a href="/r/{{ folder.folder }}">
+                        <div class="card finished">
+                            <img src="{{ folder.image_url }}" alt="">
+                            <div class="bck"></div>
+                            <div class="content">
+                                <h3><i class='bx bxs-bookmark'></i> {{ folder.folder }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    {% elif folder.metadata.lastchapter == None %}
                     <a href="/r/{{ folder.folder }}">
                         <div class="card">
                             <img src="{{ folder.image_url }}" alt="">
                             <div class="bck"></div>
                             <div class="content">
-                                <h3>{{ folder.folder }}</h3>
+                                <h3><i class='bx bxs-book'></i> {{ folder.folder }}</h3>
                             </div>
                         </div>
                     </a>
+                    {% else %}
+                    <a href="/r/{{ folder.folder }}">
+                        <div class="card continue">
+                            <img src="{{ folder.image_url }}" alt="">
+                            <div class="bck"></div>
+                            <div class="content">
+                                <h3><i class='bx bxs-book-reader'></i> {{ folder.folder }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %}
                     {% else %}
                     <p>Aucun fichier ou dossier trouvé.</p>
                     {% endfor %}
@@ -269,6 +337,8 @@
     totalRead = document.querySelectorAll('#badgeRead .badge').length;
     document.querySelector("#totalRead").innerHTML = totalRead;
 
+    totalFinished = document.querySelectorAll('#badgeFinished .badge').length;
+    document.querySelector("#totalfinished").innerHTML = totalFinished;
 
 
 
