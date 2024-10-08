@@ -39,6 +39,13 @@
 
 
 ## How to install
+
+> [!NOTE]
+> You need to have Python (for the server) and NodeJS (for the front-end) installed on your machine!
+
+### Quick installation
+
+### Manual installation
 1. Clone repository
     ```sh
     git clone https://github.com/kerogs/PyHwaer.git
@@ -54,19 +61,18 @@
 
 
 ## How to use
+### With exe
+* Click on the file ``start_server.exe``.
 ### With CLI
 ```sh
 py .\app.py
 ```
 
 ## How to add manhwa/manhua/manga
-Everything must be put in the ``/static/`` folder.
+Everything must be put in the ``/static/content`` folder.
 
 You must respect this tree structure for it to work properly
-- ``/static/[manga]/[chapter]/[allImage]``
-
-> [!IMPORTANT]
-> For the moment, the program can only recognize images, not compressed files, etc.
+- ``/static/content/[manga]/[chapter]/[allImage]``
 
 Example :
 ```tree
@@ -89,14 +95,22 @@ Example :
 ```
 
 > [!NOTE]
-> For the chapter numbering, you can name it as you wish, but it's highly recommended to keep to the format used in the example for the moment. The same goes for image format.
+> For the chapter numbering, you can name it as you wish, but it's highly recommended to keep to the format used in the example for the moment.
+
+## Configuration file
+The configuration file is located in the root directory and is called ``pyhwa.ini``.
+
+### default configuration
+* port = 5113
+* allow_local_network = true (not currently in use)
+* server_requires_login = true (not currently in use)
+* auto_meta_source = mangadex (only mangadex for the moment)
+* index_autometa = true
+* data_path = static/content (not support change for the moment)
+* meta_path = static/meta (not support change for the moment)
+* logs_enable = false (recommend to keep false)
 
 ## Future updates to come.
-- Add everything in an exe file to avoid using commands
-- Better Design
 - More themes.
-- Cover image support
-- Display a “not yet read” section
-- Make it possible to access the site from a phone.
 - Able to record where you stop (scroll for manhwa and image for manga)
-- GUI interface for start and stop server
+- Modification directly on the site
