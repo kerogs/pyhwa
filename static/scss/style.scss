@@ -513,6 +513,21 @@ main {
     }
 }
 
+.listchapter #btnSearch{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input{
+        background-color: $background;
+        border: none;
+        outline: none;
+        padding: 4px;
+        border-radius: 6px;
+        color: $text;
+    }
+}
+
 .listchapter-title {
     display: flex;
     align-items: center;

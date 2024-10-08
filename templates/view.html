@@ -83,7 +83,7 @@
         <section class="listchapter">
             <h2>
                 <span>Chapters list</span>
-                <span id="btnSearch" onclick="searchPopup()" class="search"><i class='bx bx-search-alt'></i></span>
+                <span id="btnSearch" onclick="searchPopup()" class="search"><input type="search" name="search" id="search" placeholder="Chapter..."> <i class='bx bx-search-alt'></i></span>
                 <span class="iconreverse"><i class='bx bx-sort'></i></span>
             </h2>
             <ul id="listchapter">
@@ -102,7 +102,7 @@
 
     </main>
 
-    <div class="popupSearch">
+    <!-- <div class="popupSearch">
         <div class="bck"></div>
         <div class="ccenter">
             <h2>Search</h2>
@@ -112,7 +112,7 @@
                 <button class="close" onclick="searchPopup()">Close</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     {% include 'inc/footer.html' %}
 
@@ -131,58 +131,16 @@
     })
 
 
-
-
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const cookiesArray = document.cookie.split(';');
-        for (let i = 0; i < cookiesArray.length; i++) {
-            let cookie = cookiesArray[i].trim();
-            if (cookie.indexOf(nameEQ) === 0) {
-                return cookie.substring(nameEQ.length, cookie.length);
-            }
-        }
-        return null;
-    }
-
-    // console.log("check for lastchapter...");
-    // const lastchapter = getCookie(document.querySelector("#frckName").textContent);
-    // if (lastchapter != null) {
-    //     document.querySelector("#lastchapter #lastChapterShowMSG").innerHTML += lastchapter;
-    //     document.querySelector("#lastchapter").href = "/r/" + document.querySelector("#frckName").textContent + "/" + lastchapter;
-    // } else{
-    //     document.querySelector("#lastchapter").style.display = "none";
-    // }
-
-    const popupSearch = document.querySelector('.popupSearch');
-    function searchPopup() {
-        popupSearch.classList.toggle('active');
-    }
-
     const search = document.querySelector('#search');
     search.addEventListener('input', () => {
         const searchTerm = search.value.toLowerCase();
         const listchapter = document.querySelector('#listchapter');
         const chapters = Array.from(listchapter.querySelectorAll('li'));
 
-        if (searchTerm === '') {
-            document.querySelector('.ccenter .group .close').style.display = 'block';
-            document.querySelector('.ccenter .group .result').classList.remove('active');
-            document.querySelector('#btnSearch').classList.remove('active');
-        } else {
-            document.querySelector('.ccenter .group .close').style.display = 'none';
-            document.querySelector('.ccenter .group .result').classList.add('active');
+        if(searchTerm != "") {
             document.querySelector('#btnSearch').classList.add('active');
+        } else {
+            document.querySelector('#btnSearch').classList.remove('active');
         }
 
         chapters.forEach(chapter => {
@@ -195,21 +153,23 @@
         });
     });
 
+
     const iconreverse = document.querySelector('.iconreverse');
     iconreverse.addEventListener('click', () => {
         iconreverse.classList.toggle('active');
 
         const listchapter = document.querySelector('#listchapter');
-        const chapters = Array.from(listchapter.querySelectorAll('li'));
+        const chapters = Array.from(listchapter.querySelectorAll('a')); // Sélectionnez les éléments 'a' au lieu des 'li'
 
-        chapters.reverse();
+        chapters.reverse(); // Inversez l'ordre
 
-        listchapter.innerHTML = '';
+        listchapter.innerHTML = ''; // Effacez le contenu actuel
 
         chapters.forEach(chapter => {
-            listchapter.appendChild(chapter);
+            listchapter.appendChild(chapter); // Ajoutez chaque élément 'a' de retour à la liste
         });
     });
+
 
 
     const converter = new showdown.Converter();

@@ -391,6 +391,20 @@ main section {
     margin: 0 20px;
   }
 }
+.listchapter #btnSearch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.listchapter #btnSearch input {
+  background-color: hsl(234, 14%, 10%);
+  border: none;
+  outline: none;
+  padding: 4px;
+  border-radius: 6px;
+  color: #eef4fc;
+}
+
 .listchapter-title {
   display: flex;
   align-items: center;
