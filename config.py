@@ -3,7 +3,7 @@ import logging
 import json
 
 # ! Never change these values.
-PYHWA_VERSION = "1.5-beta"
+PYHWA_VERSION = "1.1.0"
 PYHWA_LICENSE = "GNU AGPL v3.0"
 PYHWA_REPO = "https://github.com/kerogs/pyhwa"
 

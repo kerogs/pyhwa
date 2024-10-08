@@ -139,6 +139,13 @@ header {
                     animation: 2s spin infinite;
                 }
             }
+
+            li.btnNavClassic{
+                &:hover{
+                    color: $primary;
+                    cursor: pointer;
+                }
+            }
         }
     }
 

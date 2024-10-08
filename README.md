@@ -1,7 +1,7 @@
 <div align="center">
     <img alt="Logo" src=".ksinf/pyhwa.svg" height="120">
     <h3>PyHwa</h3>
-    <p><em>PyHwa is a lightweight Python application for reading manhwa, manhua, and manga across devices on your local network. It offers seamless viewing, tracks your reading progress, and allows customization with multiple themes.</em></p>
+    <p><em>PyHwa is a lightweight Python application for reading manhwa, manhua, and manga across devices on your local network. Pleasant design, tracks your reading progress, and allows customization with multiple themes.</em></p>
 </div>
 
 > [!NOTE]
@@ -39,11 +39,14 @@
 
 
 ## How to install
+If you want to create a shortcut on your desktop, you can create a shortcut to PyHwa.exe
 
 > [!NOTE]
 > You need to have Python (for the server) and NodeJS (for the front-end) installed on your machine!
 
 ### Quick installation
+* Click on the file ``PyHwa.exe``.
+    the file will take care of installing the dependencies and also the required NPM packages. If this has already been done, it will just launch the server.
 
 ### Manual installation
 1. Clone repository
@@ -62,7 +65,7 @@
 
 ## How to use
 ### With exe
-* Click on the file ``start_server.exe``.
+* Click on the file ``PyHwa.exe``.
 ### With CLI
 ```sh
 py .\app.py
