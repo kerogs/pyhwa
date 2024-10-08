@@ -13,12 +13,13 @@
 - Keeps track of your theme choices
 - Displays in Manhwa or Manga mode (and remembers)
 - Records where you stopped
-- Responsive (coming soon)
-- User-friendly (coming soon)
-- pleasant interface (coming soon)
+- Responsive
+- User-friendly 
+- pleasant interface
 - multiple themes (coming soon)
-- Automatic metadata search (still in development phase)
+- Automatic metadata search 
 - Automatic retrieval of manhwa/manhua/manga information
+- separates what is read, finished and not yet read
 
 ### Preview
 #### Computer
