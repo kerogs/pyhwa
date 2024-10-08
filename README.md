@@ -102,8 +102,9 @@ The configuration file is located in the root directory and is called ``pyhwa.in
 
 ### default configuration
 * port = 5113
-* allow_local_network = true (not currently in use)
+* allow_local_network = true
 * server_requires_login = true (not currently in use)
+* admin_requires_login = true (not currently in use)
 * auto_meta_source = mangadex (only mangadex for the moment)
 * index_autometa = true
 * data_path = static/content (not support change for the moment)
