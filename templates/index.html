@@ -115,7 +115,7 @@
                 <div class="style_badge" id="badgeRead">
 
                     {% for folder in folders %}
-                    {% if folder.metadata.lastchapter != None %}
+                    {% if folder.metadata.lastchapter != None and folder.metadata.lastChapter != folder.lastchaptername %}
                     <a href="/r/{{ folder.folder }}">
                         <div class="badge">
 
