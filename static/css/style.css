@@ -100,6 +100,10 @@ header nav ul li.param:hover {
   cursor: pointer;
   animation: 2s spin infinite;
 }
+header nav ul li.btnNavClassic:hover {
+  color: #ff8e47;
+  cursor: pointer;
+}
 header.active {
   background-color: hsl(234, 14%, 10%);
   border-bottom: 1px solid #ff8e47;
