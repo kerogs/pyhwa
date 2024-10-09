@@ -7,7 +7,7 @@ import uuid
 
 
 def scanFolder(url: str):
-    print("Scanning folder...")
+    # print("Scanning folder...")
     file_list = []
 
     if os.path.exists(url):
@@ -15,10 +15,10 @@ def scanFolder(url: str):
             item_path = os.path.join(url, item)
             if item != ".gitkeep":
                 file_list.append(item)
-                print("found : " + item_path)
+                # print("found : " + item_path)
                 logWriter("(def scanFolder) found : " + item_path, "debug")
             else:
-                print("ignored : " + item_path)
+                # print("ignored : " + item_path)
                 logWriter("(def scanFolder) ignored : " + item_path, "debug")
 
         file_list.sort(

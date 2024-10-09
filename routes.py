@@ -25,7 +25,7 @@ def start_flask():
     webbrowser.open("http://127.0.0.1:" + str(PYHWA_PORT))
     print("======================>\n")
     logWriter("Starting PyHwa server...", "info")
-    app.run(debug=True, port=PYHWA_PORT, host=PHLNA, use_reloader=False)
+    app.run(debug=False, port=PYHWA_PORT, host=PHLNA, use_reloader=False)
     
 
 app = Flask(__name__)
